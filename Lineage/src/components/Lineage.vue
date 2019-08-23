@@ -1,5 +1,5 @@
 <template>
-  <table class="inventory" border="1">
+  <table class="lineage" border="1">
 
   <!--  <tr
       border="2"
@@ -45,7 +45,7 @@
 import UploadFile from './UploadFile';
 
 export default {
-  name: 'Inventory',
+  name: 'Lineage',
 
   components: {
     UploadFile
