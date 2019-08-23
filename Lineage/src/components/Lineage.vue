@@ -1,10 +1,10 @@
 <template>
-  <div class="inventory">
+  <table class="inventory" border="1">
 
-    <ul
-      border="1"
+  <!--  <tr
+      border="2"
       align="center">
-      <li
+      <td
         v-for="product in products"
         :key="product">
         <input
@@ -17,18 +17,40 @@
         <button @click="product.quantity += 1">
           Add
         </button>
-      </li>
+      </td>
 
-    </ul>
+    </tr>
 
-    <h2> Total Inventory : {{ totalProducts }} </h2>
+    
+    <h2> Total Inventory : {{ totalProducts }} </h2> -->
 
-  </div>
+  <tr>
+ 
+
+  <upload-file
+              class="upload-file"
+              v-model="UploadFile"
+              @submitFile="submitFile">
+            </upload-file>
+
+  </tr>
+
+ 
+
+  </table>
 </template>
 
 <script>
+
+import UploadFile from './UploadFile';
+
 export default {
   name: 'Inventory',
+
+  components: {
+    UploadFile
+  },
+
 
   data () {
     return {
@@ -55,7 +77,7 @@ export default {
         this.products = json.products;
       });
   }
-
+  
 };
 </script>
 

@@ -1,20 +1,23 @@
 <template>
   <div id="app">
 
-    <HelloWorld msg="Here you go"/>
     <Inventory/>
+    
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue';
+
+//import Hover from './components/Hover.vue';
 import Inventory from './components/Inventory.vue';
 
 export default {
   name: 'App',
+
   components: {
-    // HelloWorld,
-    Inventory
+  
+  Inventory,
+  
   }
 };
 </script>
