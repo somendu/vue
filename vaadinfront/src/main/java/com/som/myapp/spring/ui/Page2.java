@@ -41,6 +41,7 @@ public class Page2 extends VerticalLayout {
 		Image image = new Image("/images/blog-4.jpg", "alt text");
 
 		add(image);
+
 	}
 
 }

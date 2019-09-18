@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.som.myapp.spring.MainView;
 import com.som.myapp.spring.MessageBean;
-import com.vaadin.componentfactory.Popup;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -42,30 +41,51 @@ public class Page3 extends HorizontalLayout {
 
 	public Page3(@Autowired MessageBean bean) {
 
-		// Button button = new Button("Click me", e ->
-		// Notification.show(bean.getMessage()));
-		// add(button);
+		Div mainDiv = new Div();
+		mainDiv.setId("main-div");
 
 		Div target = new Div();
-		// target.setText("I have popup, click me(I dont change popup content)");
 		target.setId("div-push-me-2");
 
-		Image image = new Image("/images/blog-5.jpg", "alt text");
-		image.setHeight("100px");
-		image.setWidth("100px");
+		// "/images/slider-1.jpg", "alt text"
 
-		add(image);
+		Image image = new Image();
+		image.setSrc("/images/3.png");
 
-		Image imagePop = new Image("/images/blog-5.jpg", "alt text");
-		imagePop.setId("image-popup");
+		Image slide2 = new Image("/images/4.png", "slider-2");
+		Image slide3 = new Image("/images/5.png", "slider-3");
+		Image blog4 = new Image("/images/6.png", "blog-4");
+		Image blog5 = new Image("/images/7.png", "blog-5");
 
-		Popup popup = new Popup();
+		setSize(image);
+		setSize(slide2);
+		setSize(slide3);
+		setSize(blog4);
+		setSize(blog5);
 
-		add(target, popup);
-		popup.setFor(target.getId().orElse(null));
-		popup.add(imagePop);
+		add(target, image);
 
-		image.addClickListener(e -> popup.show());
+		image.addClickListener(e -> operate(target, image, slide2));
+
+		slide2.addClickListener(e -> operate(target, slide2, slide3));
+
+		slide3.addClickListener(e -> operate(target, slide3, blog4));
+
+		blog4.addClickListener(e -> operate(target, blog4, blog5));
+
+	}
+
+	private void operate(Div target, Image toRemove, Image toAdd) {
+
+		remove(toRemove);
+		add(target, toAdd);
+
+	}
+
+	private void setSize(Image image) {
+
+		image.setWidth("800px");
+		image.setHeight("800px");
 
 	}
 }
