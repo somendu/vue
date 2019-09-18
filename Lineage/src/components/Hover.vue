@@ -1,10 +1,8 @@
 <template>
-  <div class="Hover">
-      <span v-bind:title="message">
-    Hover your mouse over me for a few seconds
-    to see my dynamically bound title!
-  </span>
-  </div>
+  <div id="demo">
+        <div v-show="active">Show</div>
+        <div @mouseover="mouseOver">Hover over me!</div>
+    </div>
 </template>
 
 <script>
@@ -12,10 +10,19 @@ export default {
   name: 'Hover',
 
 	data () {
-	
-		'You loaded this page on ' + new Date().toLocaleString();
-	}
-} 
+    return {
+      active : false
+    }
+  },
+
+  methods:  {
+    mouseOver: function() {
+         this.active = !this.active;  
+      }
+    }
+    
+}
+ 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

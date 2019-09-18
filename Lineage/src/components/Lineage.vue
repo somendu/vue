@@ -25,7 +25,10 @@
     <h2> Total Inventory : {{ totalProducts }} </h2> -->
 
   <tr>
- 
+    <hover class="hover" v-model="Hover" @upHere="upHere"></hover>  
+  </tr>
+
+  <tr>
 
   <upload-file
               class="upload-file"
@@ -43,12 +46,13 @@
 <script>
 
 import UploadFile from './UploadFile';
+import Hover from './Hover';
 
 export default {
   name: 'Lineage',
 
   components: {
-    UploadFile
+    Hover, UploadFile 
   },
 
 

@@ -30,11 +30,12 @@ export default {
     
      
      //Method for uploading file 
-     axios
+    axios
         .post('/api/uploadFile', formData);
       
-      alert ("Submit");
-      
+    alert ("Submit");
+    
+    window.location.reload();
 
     
   },

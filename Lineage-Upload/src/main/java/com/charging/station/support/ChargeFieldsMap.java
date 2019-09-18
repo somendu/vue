@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.Data;
+
 /**
  * 
  * In-memory data - hard coded values
@@ -15,11 +17,16 @@ import java.util.UUID;
  * @author somendu
  *
  */
+@Data
 public class ChargeFieldsMap {
 
-	public static List<ChargeField> getChargeFieldMap() {
+	private static List<ChargeField> chargeFieldArray = new ArrayList<ChargeField>();
 
-		List<ChargeField> chargeFieldArray = new ArrayList<ChargeField>();
+	public static void clearList() {
+		chargeFieldArray.clear();
+	}
+
+	public static List<ChargeField> getChargeFieldMap() {
 
 		// Filed 1 - In Progress
 		ChargeField chargeField = new ChargeField();
@@ -94,6 +101,14 @@ public class ChargeFieldsMap {
 
 		return chargeFieldArray;
 
+	}
+
+	public static void addData(ChargeField chargeField) {
+		chargeFieldArray.add(chargeField);
+
+		for (ChargeField chargeFieldDisp : chargeFieldArray) {
+			System.out.println("Charge Field Values : " + chargeFieldDisp.toString() + "\n");
+		}
 	}
 
 }

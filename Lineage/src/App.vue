@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <Lineage/>
+    <ImageView/>
     
   </div>
 </template>
@@ -9,14 +9,15 @@
 <script>
 
 //import Hover from './components/Hover.vue';
-import Lineage from './components/Lineage.vue';
+//import Lineage from './components/Lineage.vue';
+import ImageView from './components/ImageView.vue';
 
 export default {
   name: 'App',
 
   components: {
   
-  Lineage,
+  ImageView,
   
   }
 };

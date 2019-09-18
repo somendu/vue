@@ -28,17 +28,23 @@ import com.charging.station.support.StatusEnum;
 public class ControllerServiceImpl implements ControllerService {
 
 	@Override
-
 	public ChargeField startChargingSession(ChargeRequest request) {
+
+		ChargeFieldsMap.clearList();
 
 		List<ChargeField> chargeFieldList = ChargeFieldsMap.getChargeFieldMap();
 
-		ChargeField chargeFieldInProgress = new ChargeField();
+		ChargeField chargeFieldInProgress = null;
+		ChargeField chargeFieldNew = null;
+
+		String existingStationId = "";
 
 		for (ChargeField chargeFieldStop : chargeFieldList) {
 
 			if (chargeFieldStop.getStationId().equalsIgnoreCase(request.getStationId())) {
-
+				System.out.println(" Station ID Found" + chargeFieldStop.getStationId());
+				existingStationId = chargeFieldStop.getStationId();
+				chargeFieldInProgress = new ChargeField();
 				chargeFieldInProgress.setId(UUID.randomUUID());
 				chargeFieldInProgress.setStationId(request.getStationId());
 				chargeFieldInProgress.setStartedAt(LocalDateTime.now());
@@ -51,7 +57,27 @@ public class ControllerServiceImpl implements ControllerService {
 
 		}
 
-		return chargeFieldInProgress;
+		if (existingStationId.equalsIgnoreCase("")) {
+			System.out.println(" Station ID Creating new : " + request.getStationId());
+
+			chargeFieldNew = new ChargeField();
+			chargeFieldNew.setId(UUID.randomUUID());
+			chargeFieldNew.setStationId(request.getStationId());
+			chargeFieldNew.setStartedAt(LocalDateTime.now());
+			chargeFieldNew.setStatus(StatusEnum.IN_PROGRESS);
+		}
+
+		if (chargeFieldNew != null) {
+			System.out.println("chargeFieldNew is not null");
+			ChargeFieldsMap.addData(chargeFieldNew);
+		}
+
+		if (chargeFieldInProgress != null) {
+			return chargeFieldInProgress;
+		} else {
+			return chargeFieldNew;
+		}
+
 	}
 
 	@Override
