@@ -15,10 +15,7 @@
  */
 package com.som.myapp.spring.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.som.myapp.spring.MainView;
-import com.som.myapp.spring.MessageBean;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -39,7 +36,7 @@ import com.vaadin.flow.router.Route;
 
 public class Page3 extends HorizontalLayout {
 
-	public Page3(@Autowired MessageBean bean) {
+	public Page3() {
 
 		Div mainDiv = new Div();
 		mainDiv.setId("main-div");
@@ -65,6 +62,8 @@ public class Page3 extends HorizontalLayout {
 
 		add(target, image);
 
+		// while (image != null) {
+
 		image.addClickListener(e -> operate(target, image, slide2));
 
 		slide2.addClickListener(e -> operate(target, slide2, slide3));
@@ -72,6 +71,10 @@ public class Page3 extends HorizontalLayout {
 		slide3.addClickListener(e -> operate(target, slide3, blog4));
 
 		blog4.addClickListener(e -> operate(target, blog4, blog5));
+
+		blog5.addClickListener(e -> operate(target, blog5, image));
+
+		// }
 
 	}
 

@@ -10,6 +10,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
+import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
@@ -36,16 +37,20 @@ public class MainView extends Div implements RouterLayout, PageConfigurator {
 		categories.add(new Icon(VaadinIcon.ARCHIVES), new Text("Second"));
 		// categories.addClassName("main-layout__nav-item");
 
-		RouterLink images = new RouterLink(null, Page3.class);
-		images.add(new Icon(VaadinIcon.LIST), new Text("Images"));
+		RouterLink images = new RouterLink("Hello", Page3.class);
+		// images.add(new Icon(VaadinIcon.LIST), new Text("Images"));
+		images.setHighlightCondition(HighlightConditions.sameLocation());
 
 		// Div navigation = new Div(reviews);
 		Div navigation = new Div(images);
 		// navigation.addClassName("main-layout__nav");
 
-		Div header = new Div(title, navigation);
+//		Div header = new Div(title, images);
+		Div header = new Div(title);
 		// header.addClassName("main-layout__header");
-		add(header);
+
+		Page3 page3 = new Page3();
+		add(header, page3);
 	}
 
 	@Override
