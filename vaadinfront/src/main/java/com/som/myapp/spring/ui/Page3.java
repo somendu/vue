@@ -38,6 +38,10 @@ public class Page3 extends HorizontalLayout {
 
 	public Page3() {
 
+		init();
+	}
+
+	private void init() {
 		Div mainDiv = new Div();
 		mainDiv.setId("main-div");
 
@@ -62,19 +66,55 @@ public class Page3 extends HorizontalLayout {
 
 		add(target, image);
 
-		// while (image != null) {
+//		Timer timer = new Timer();
+//
+//		timer.scheduleRepeatable(10);
+//
+//		timer.run(new Timer.TimerListener() {
+//
+//			@Override
+//			public void onTimer() {
+//
+//				System.out.println("Locked in Here");
+//
+//				operate(target, image, slide2);
+//				operate(target, slide2, slide3);
+//				operate(target, slide3, blog4);
+//				operate(target, blog4, blog5);
+//				operate(target, blog5, image);
+//
+//			}
+//		});
 
-		image.addClickListener(e -> operate(target, image, slide2));
+//		VSchedulerImpl.INSTANCE.scheduleEntry(new Scheduler.RepeatingCommand() {
+//
+//			@Override
+//			public boolean execute() {
+//
+//				operate(target, image, slide2);
+//				operate(target, slide2, slide3);
+//				operate(target, slide3, blog4);
+//				operate(target, blog4, blog5);
+//				operate(target, blog5, image);
+//				return false;
+//			}
+//		});
 
-		slide2.addClickListener(e -> operate(target, slide2, slide3));
+//				operate(target, image, slide2);
+//				operate(target, slide2, slide3);
+//				operate(target, slide3, blog4);
+//				operate(target, blog4, blog5);
+//				operate(target, blog5, image);
 
-		slide3.addClickListener(e -> operate(target, slide3, blog4));
-
-		blog4.addClickListener(e -> operate(target, blog4, blog5));
-
-		blog5.addClickListener(e -> operate(target, blog5, image));
-
-		// }
+//		image.addClickListener(e -> operate(target, image, slide2));
+//
+//		slide2.addClickListener(e -> operate(target, slide2, slide3));
+//
+//		slide3.addClickListener(e -> operate(target, slide3, blog4));
+//
+//		blog4.addClickListener(e -> operate(target, blog4, blog5));
+//
+//		blog5.addClickListener(e -> operate(target, blog5, image));
 
 	}
 
