@@ -16,9 +16,12 @@
 package com.som.myapp.spring.ui;
 
 import com.som.myapp.spring.MainView;
+import com.som.myapp.spring.ui.common.PaperSlider;
+import com.som.myapp.spring.ui.common.PaperSliderChangEvent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -48,7 +51,20 @@ public class Page3 extends HorizontalLayout {
 		Div target = new Div();
 		target.setId("div-push-me-2");
 
-		// "/images/slider-1.jpg", "alt text"
+		Div target1 = new Div();
+		target.setId("div-push-me-2");
+
+		Div target2 = new Div();
+		target.setId("div-push-me-2");
+
+		Div target3 = new Div();
+		target.setId("div-push-me-2");
+
+		Div target4 = new Div();
+		target.setId("div-push-me-2");
+
+		Div target5 = new Div();
+		target.setId("div-push-me-2");
 
 		Image image = new Image();
 		image.setSrc("/images/3.png");
@@ -64,47 +80,28 @@ public class Page3 extends HorizontalLayout {
 		setSize(blog4);
 		setSize(blog5);
 
+		target.addClassName("container");
+
+		target1.add(slide2);
+		target2.add(slide3);
+		target3.add(slide3);
+		target4.add(blog4);
+		target5.add(blog5);
+
+		Label label = new Label("");
+		PaperSlider paperSlider = new PaperSlider("5", "100", "20");
+
+		target.add(new Label("Down"));
+
 		add(target, image);
 
-//		Timer timer = new Timer();
-//
-//		timer.scheduleRepeatable(10);
-//
-//		timer.run(new Timer.TimerListener() {
-//
-//			@Override
-//			public void onTimer() {
-//
-//				System.out.println("Locked in Here");
-//
-//				operate(target, image, slide2);
-//				operate(target, slide2, slide3);
-//				operate(target, slide3, blog4);
-//				operate(target, blog4, blog5);
-//				operate(target, blog5, image);
-//
-//			}
-//		});
+		add(paperSlider);
 
-//		VSchedulerImpl.INSTANCE.scheduleEntry(new Scheduler.RepeatingCommand() {
-//
-//			@Override
-//			public boolean execute() {
-//
-//				operate(target, image, slide2);
-//				operate(target, slide2, slide3);
-//				operate(target, slide3, blog4);
-//				operate(target, blog4, blog5);
-//				operate(target, blog5, image);
-//				return false;
-//			}
-//		});
+		add(label);
 
-//				operate(target, image, slide2);
-//				operate(target, slide2, slide3);
-//				operate(target, slide3, blog4);
-//				operate(target, blog4, blog5);
-//				operate(target, blog5, image);
+		label.setText(paperSlider.getInitValue());
+
+		paperSlider.addChangeListener(e -> operateImage(label, e));
 
 //		image.addClickListener(e -> operate(target, image, slide2));
 //
@@ -115,6 +112,22 @@ public class Page3 extends HorizontalLayout {
 //		blog4.addClickListener(e -> operate(target, blog4, blog5));
 //
 //		blog5.addClickListener(e -> operate(target, blog5, image));
+
+//		Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+//
+//			@Override
+//			public void execute() {
+//				// Reset the search field for next time
+//				System.out.println("Test");
+//			}
+//
+//		});
+
+	}
+
+	private void operateImage(Label label, PaperSliderChangEvent e) {
+
+		label.setText(e.getValue());
 
 	}
 

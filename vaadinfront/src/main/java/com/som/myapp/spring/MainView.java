@@ -3,6 +3,7 @@ package com.som.myapp.spring;
 import com.som.myapp.spring.ui.Page1;
 import com.som.myapp.spring.ui.Page2;
 import com.som.myapp.spring.ui.Page3;
+import com.som.myapp.spring.ui.Page4;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
@@ -22,6 +23,7 @@ import com.vaadin.flow.server.PageConfigurator;
 @PWA(name = "Project Base for Vaadin Flow with Spring", shortName = "Project Base")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @Push
+
 public class MainView extends Div implements RouterLayout, PageConfigurator {
 
 	public MainView() {
@@ -50,7 +52,10 @@ public class MainView extends Div implements RouterLayout, PageConfigurator {
 		// header.addClassName("main-layout__header");
 
 		Page3 page3 = new Page3();
-		add(header, page3);
+//		add(header, page3);
+
+		Page4 page4 = new Page4();
+		add(page3);
 	}
 
 	@Override
