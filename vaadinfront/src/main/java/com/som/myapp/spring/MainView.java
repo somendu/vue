@@ -55,7 +55,9 @@ public class MainView extends Div implements RouterLayout, PageConfigurator {
 //		add(header, page3);
 
 		Page4 page4 = new Page4();
-		add(page3);
+		add(page4);
+
+		setSizeFull();
 	}
 
 	@Override

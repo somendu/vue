@@ -31,6 +31,17 @@ public class PaperSlider extends Component {
 		getElement().setAttribute("max", max);
 		getElement().setAttribute("value", initValue);
 
+//		addStyleName(getElement().getStyle() + "-vertical");
+
+//		getElement().getStyle().set("width", "150px");
+//		getElement().getStyle().set("height", "20px");
+//		getElement().getStyle().set("margin", "0");
+//		getElement().getStyle().set("transform", "rotate(90deg)");
+//		getElement().getStyle().set("transform-origin", "75px 75px");
+
+		getElement().getStyle().set("--paper-slider-knob-color", "var(--paper-grey-500)");
+		getElement().getStyle().set("--paper-slider-active-color", "var(--paper-yellow-500)");
+
 	}
 
 	public Registration addChangeListener(ComponentEventListener<PaperSliderChangEvent> listener) {

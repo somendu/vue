@@ -17,15 +17,25 @@ package com.som.myapp.spring.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.som.myapp.spring.MainView;
+import com.som.myapp.spring.ui.common.CustomImage;
+import com.som.myapp.spring.ui.common.PaperSlider;
+import com.som.myapp.spring.ui.common.PaperSliderChangEvent;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.Grid.Column;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.shared.Registration;
 
 /**
  * Displays the list of available categories, with a search filter as well as
@@ -40,69 +50,322 @@ import com.vaadin.flow.router.Route;
 
 public class Page4 extends HorizontalLayout {
 
+	CustomImage customImageTransfer = new CustomImage();
+
+	Div gridDiv = new Div();
+	Div sliderDiv = new Div();
+	Div labelDiv = new Div();
+
+	Div resetButtonDiv = new Div();
+
+	List<CustomImage> imageList = new ArrayList<CustomImage>();
+	Grid<CustomImage> grid = new Grid<CustomImage>();
+
+	CustomImage customImage = new CustomImage();
+	CustomImage customImageTwo = new CustomImage();
+	CustomImage customImageThree = new CustomImage();
+	CustomImage customImageFour = new CustomImage();
+	CustomImage customImageFive = new CustomImage();
+	CustomImage customImageSix = new CustomImage();
+	CustomImage customImageSeven = new CustomImage();
+	CustomImage customImageEight = new CustomImage();
+	CustomImage customImageNine = new CustomImage();
+	CustomImage customImageTen = new CustomImage();
+	CustomImage customImageEleven = new CustomImage();
+	CustomImage customImageTwelve = new CustomImage();
+	CustomImage customImageThirteen = new CustomImage();
+	CustomImage customImageFourteen = new CustomImage();
+	CustomImage customImageFifteen = new CustomImage();
+	CustomImage customImageSixteen = new CustomImage();
+	CustomImage customImageSeventeen = new CustomImage();
+	CustomImage customImageEighteen = new CustomImage();
+
+	PaperSlider paperSlider = new PaperSlider("0", "100", "0");
+
+	Label valueLabel = new Label("");
+
+	Button startButton = new Button("Start");
+
+	Button resetButton = new Button("Start Over");
+
+	Registration gridFirstCLick;
+	Registration gridSecondCLick;
+
 	public Page4() {
 
-		Div target = new Div();
-		target.setId("div-push-me-2");
+		initWidget();
 
-		List<Image> imageList = new ArrayList<Image>();
+	}
 
-		Grid<Image> grid = new Grid<Image>(10);
+	private void initWidget() {
+
+		gridDiv.setId("gridDiv-push-me-2");
+
+		sliderDiv.setId("sliderDiv-push-me-2");
+
+		labelDiv.setId("labelDiv-push-me-2");
+
 		grid.setId("grid");
 
-		Image image = new Image();
-		Image image1 = new Image();
-		Image image2 = new Image();
-		Image image3 = new Image();
-		Image image4 = new Image();
-		Image image5 = new Image();
+//		CustomImage customImage = new CustomImage();
 
-		Image image6 = new Image();
-		Image image7 = new Image();
-		Image image8 = new Image();
+		//
 
-		Image image9 = new Image();
-		Image image10 = new Image();
+		imageList.add(customImage);
 
-		image.setSrc("/images/susceptible.png");
+		grid.setItems(imageList);
 
-		image1.setSrc("/images/vaccinated.png");
-		image2.setSrc("/images/vaccinated.png");
-		image3.setSrc("/images/vaccinated.png");
-		image4.setSrc("/images/vaccinated.png");
-		image5.setSrc("/images/vaccinated.png");
+		grid.addComponentColumn(i -> customImageTwo.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageThree.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageFour.getHorizontalLayout());
+		grid.addComponentColumn(i -> customImageFive.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageSix.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageSeven.getHorizontalLayout());
+		grid.addComponentColumn(i -> customImageEight.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageNine.getHorizontalLayout());
+		grid.addComponentColumn(i -> customImageTen.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageEleven.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageTwelve.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageThirteen.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageFourteen.getVerticalTwoImageLayout());
 
-		image6.setSrc("/images/vaccinated.png");
-		image7.setSrc("/images/vaccinated.png");
-		image8.setSrc("/images/vaccinated.png");
+		gridDiv.add(grid);
+		grid.setSelectionMode(Grid.SelectionMode.NONE);
 
-		image9.setSrc("/images/vaccinated.png");
-		image10.setSrc("/images/vaccinated.png");
+		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
+				GridVariant.LUMO_WRAP_CELL_CONTENT, GridVariant.LUMO_COMPACT);
 
-		imageList.add(image);
-//		imageList.add(image1);
-//		imageList.add(image2);
-//		imageList.add(image3);
-//		imageList.add(image4);
-//		imageList.add(image5);
-//		imageList.add(image6);
-//		imageList.add(image7);
+//		grid.getElement().getStyle().set("position", "static");
 
-		grid.addComponentColumn(i -> image).setAutoWidth(false);
-		grid.addComponentColumn(i -> image1).setAutoWidth(false);
-		grid.addComponentColumn(i -> image2).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image3).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image4).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image5).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image6).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image7).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image8).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image9).setAutoWidth(false);
-//		grid.addComponentColumn(i -> image10).setAutoWidth(false);
+		grid.setHeightByRows(true);
 
-		grid.setItems(image, image1, image2);
+//		grid.setWidth("50%");
 
-		add(target, grid);
+		List<Column<CustomImage>> columnsList = grid.getColumns();
+
+		for (Column<CustomImage> columnImage : columnsList) {
+			columnImage.setFlexGrow(0);
+
+			// TODO This is to get the key name
+			// columnImage.setKey("Key Setting");
+
+		}
+
+		sliderDiv.add(paperSlider);
+
+		valueLabel.setText(paperSlider.getInitValue());
+
+		labelDiv.add(valueLabel);
+
+		startButton.setEnabled(false);
+
+		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
+				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
+				customImageTen, customImageEleven, customImageTwelve, customImageThirteen, customImageFourteen));
+
+		addComponentAtIndex(0, sliderDiv);
+		addComponentAtIndex(1, labelDiv);
+		addComponentAtIndex(2, gridDiv);
+		// addComponentAtIndex(3, startButton);
+
+	}
+
+	/**
+	 * Slide change event
+	 * 
+	 * @param div
+	 * @param label
+	 * @param button
+	 * @param sliderEvent
+	 * @param customImage
+	 */
+	private void changeSusceptibleImage(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+		// TODO THis will be used once timer thing in place
+		sliderEvent.getSource().getElement().setAttribute("disabled", "true");
+
+//		startButton.setEnabled(true);
+
+		// if (startButton.isEnabled()) {
+		// startButton.addClickListener(buttonEvent -> imageChanger(sliderEvent,
+		// customImage));
+
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+			imageChanger(sliderEvent, customImage);
+		}));
+		// }
+
+		valueLabel.setText(sliderEvent.getValue());
+
+		// TODO Check count of the images and change accordingly
+
+		for (CustomImage customImageSingle : customImage) {
+			customImageSingle.setVaccinatedImage();
+		}
+
+		if (Integer.parseInt(sliderEvent.getValue()) <= 10) {
+
+			customImage[0].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 10 && Integer.parseInt(sliderEvent.getValue()) <= 20) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 20 && Integer.parseInt(sliderEvent.getValue()) <= 30) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 30 && Integer.parseInt(sliderEvent.getValue()) <= 40) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 40 && Integer.parseInt(sliderEvent.getValue()) <= 50) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 50 && Integer.parseInt(sliderEvent.getValue()) <= 60) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+			customImage[5].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 60 && Integer.parseInt(sliderEvent.getValue()) <= 70) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+			customImage[5].setSusceptibleImage();
+			customImage[6].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 70 && Integer.parseInt(sliderEvent.getValue()) <= 80) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+			customImage[5].setSusceptibleImage();
+			customImage[6].setSusceptibleImage();
+			customImage[7].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 80 && Integer.parseInt(sliderEvent.getValue()) <= 90) {
+
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+			customImage[5].setSusceptibleImage();
+			customImage[6].setSusceptibleImage();
+			customImage[7].setSusceptibleImage();
+			customImage[8].setSusceptibleImage();
+		} else if (Integer.parseInt(sliderEvent.getValue()) > 90 && Integer.parseInt(sliderEvent.getValue()) <= 100) {
+			customImage[0].setSusceptibleImage();
+			customImage[1].setSusceptibleImage();
+			customImage[2].setSusceptibleImage();
+			customImage[3].setSusceptibleImage();
+			customImage[4].setSusceptibleImage();
+			customImage[5].setSusceptibleImage();
+			customImage[6].setSusceptibleImage();
+			customImage[7].setSusceptibleImage();
+			customImage[8].setSusceptibleImage();
+			customImage[9].setSusceptibleImage();
+
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private void imageChanger(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+		// TODO Based on slider event count value - need to change the image
+
+		// TODO Set the susceptible/infected your child image as well
+		customImage[2].getImageOne().setSrc("/images/susceptible-your-child.png");
+
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+			setSickImages(sliderEvent, customImage);
+		}));
+
+		// gridFirstCLick = gridDiv.addClickListener(gridEvent ->
+		// setSickImages(sliderEvent, customImage));
+
+		startButton.setEnabled(false);
+
+	}
+
+	private void setSickImages(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+		customImage[7].setInfectedImage();
+		customImage[8].setInfectedImage();
+		customImage[9].setInfectedImage();
+
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+			setInfectedChild(sliderEvent, customImage);
+		}));
+
+	}
+
+	private void setInfectedChild(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+		customImage[2].getImageOne().setSrc("/images/infected-your-child.png");
+
+		// resetButtonDiv.add(resetButton);
+		// addComponentAtIndex(3, resetButtonDiv);
+		sliderEvent.getSource().getElement().removeAttribute("disabled");
+
+		resetButton.addClickListener(resetClick -> reset(sliderEvent, customImage));
+
+	}
+
+	private void reset(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+		// TODO slider need to call once the change animation completed
+		sliderEvent.getSource().getElement().removeAttribute("disabled");
+		sliderDiv.remove(paperSlider);
+
+		// TODO
+		// Check to reinitiate the Slider
+		paperSlider = new PaperSlider("0", "100", "0");
+		sliderDiv.add(paperSlider);
+
+		valueLabel.setText(paperSlider.getInitValue());
+
+		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
+				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
+				customImageTen, customImageEleven, customImageTwelve, customImageThirteen, customImageFourteen));
+
+		customImage[0].setImage();
+		customImage[1].setImage();
+		customImage[2].setImage();
+		customImage[3].setImage();
+		customImage[4].setImage();
+		customImage[5].setImage();
+		customImage[6].setImage();
+		customImage[7].setImage();
+		customImage[8].setImage();
+		customImage[9].setImage();
+
+		startButton.setEnabled(false);
+
+		resetButtonDiv.remove(resetButton);
 
 	}
 }

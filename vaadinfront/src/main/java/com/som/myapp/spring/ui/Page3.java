@@ -22,6 +22,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.BoxSizing;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -88,20 +89,24 @@ public class Page3 extends HorizontalLayout {
 		target4.add(blog4);
 		target5.add(blog5);
 
-		Label label = new Label("");
+		Label label = new Label("Test");
 		PaperSlider paperSlider = new PaperSlider("5", "100", "20");
 
-		target.add(new Label("Down"));
+		Label labelTarget = new Label("Test");
 
-		add(target, image);
+		// add(target, labelTarget, image);
+
+		add(target, labelTarget);
 
 		add(paperSlider);
 
 		add(label);
 
+		this.setBoxSizing(BoxSizing.BORDER_BOX);
+
 		label.setText(paperSlider.getInitValue());
 
-		paperSlider.addChangeListener(e -> operateImage(label, e));
+		paperSlider.addChangeListener(e -> operateLabel(label, e));
 
 //		image.addClickListener(e -> operate(target, image, slide2));
 //
@@ -125,7 +130,7 @@ public class Page3 extends HorizontalLayout {
 
 	}
 
-	private void operateImage(Label label, PaperSliderChangEvent e) {
+	private void operateLabel(Label label, PaperSliderChangEvent e) {
 
 		label.setText(e.getValue());
 
