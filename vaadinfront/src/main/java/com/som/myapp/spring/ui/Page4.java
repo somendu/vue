@@ -16,7 +16,10 @@
 package com.som.myapp.spring.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.som.myapp.spring.MainView;
@@ -31,6 +34,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -91,6 +95,8 @@ public class Page4 extends HorizontalLayout {
 	Registration gridFirstCLick;
 	Registration gridSecondCLick;
 
+	List<Integer> rowArray = new ArrayList<Integer>();
+
 	public Page4() {
 
 		initWidget();
@@ -115,19 +121,16 @@ public class Page4 extends HorizontalLayout {
 
 		grid.setItems(imageList);
 
-		grid.addComponentColumn(i -> customImageTwo.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageTwo.getHorizontalLayout());
 		grid.addComponentColumn(i -> customImageThree.getVerticalInitialLayout());
 		grid.addComponentColumn(i -> customImageFour.getHorizontalLayout());
 		grid.addComponentColumn(i -> customImageFive.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageSix.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageSeven.getHorizontalLayout());
-		grid.addComponentColumn(i -> customImageEight.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageNine.getHorizontalLayout());
-		grid.addComponentColumn(i -> customImageTen.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageSix.getHorizontalLayout());
+		grid.addComponentColumn(i -> customImageSeven.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageEight.getHorizontalLayout());
+		grid.addComponentColumn(i -> customImageNine.getVerticalInitialLayout());
+		grid.addComponentColumn(i -> customImageTen.getHorizontalLayout());
 		grid.addComponentColumn(i -> customImageEleven.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageTwelve.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageThirteen.getVerticalInitialLayout());
-		grid.addComponentColumn(i -> customImageFourteen.getVerticalTwoImageLayout());
 
 		gridDiv.add(grid);
 		grid.setSelectionMode(Grid.SelectionMode.NONE);
@@ -135,11 +138,7 @@ public class Page4 extends HorizontalLayout {
 		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
 				GridVariant.LUMO_WRAP_CELL_CONTENT, GridVariant.LUMO_COMPACT);
 
-//		grid.getElement().getStyle().set("position", "static");
-
 		grid.setHeightByRows(true);
-
-//		grid.setWidth("50%");
 
 		List<Column<CustomImage>> columnsList = grid.getColumns();
 
@@ -161,7 +160,7 @@ public class Page4 extends HorizontalLayout {
 
 		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
 				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
-				customImageTen, customImageEleven, customImageTwelve, customImageThirteen, customImageFourteen));
+				customImageTen, customImageEleven));
 
 		addComponentAtIndex(0, sliderDiv);
 		addComponentAtIndex(1, labelDiv);
@@ -190,11 +189,29 @@ public class Page4 extends HorizontalLayout {
 		// startButton.addClickListener(buttonEvent -> imageChanger(sliderEvent,
 		// customImage));
 
+		for (CustomImage customImageSingle : customImage) {
+			customImageSingle.setVaccinatedImage();
+
+		}
+
+		Map<Integer, LinkedHashSet<Integer>> columnSet = getColumnMap(Integer.parseInt(sliderEvent.getValue()));
+
+		for (Integer key : columnSet.keySet()) {
+			Map<Integer, Image> map = customImage[key].getImageMap();
+
+			LinkedHashSet<Integer> integerSet = columnSet.get(key);
+
+			for (Integer hashInt : integerSet) {
+				map.get(hashInt).setSrc("/images/susceptible.png");
+			}
+
+		}
+
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
 			registrationHolder.get().remove();
 			registrationHolder.set(null);
-			imageChanger(sliderEvent, customImage);
+			changeImageYourKid(sliderEvent, customImage);
 		}));
 		// }
 
@@ -202,92 +219,16 @@ public class Page4 extends HorizontalLayout {
 
 		// TODO Check count of the images and change accordingly
 
-		for (CustomImage customImageSingle : customImage) {
-			customImageSingle.setVaccinatedImage();
-		}
+		// TODO
+		// Check for changing the colour accordingly
 
-		if (Integer.parseInt(sliderEvent.getValue()) <= 10) {
-
-			customImage[0].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 10 && Integer.parseInt(sliderEvent.getValue()) <= 20) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 20 && Integer.parseInt(sliderEvent.getValue()) <= 30) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 30 && Integer.parseInt(sliderEvent.getValue()) <= 40) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 40 && Integer.parseInt(sliderEvent.getValue()) <= 50) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 50 && Integer.parseInt(sliderEvent.getValue()) <= 60) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-			customImage[5].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 60 && Integer.parseInt(sliderEvent.getValue()) <= 70) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-			customImage[5].setSusceptibleImage();
-			customImage[6].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 70 && Integer.parseInt(sliderEvent.getValue()) <= 80) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-			customImage[5].setSusceptibleImage();
-			customImage[6].setSusceptibleImage();
-			customImage[7].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 80 && Integer.parseInt(sliderEvent.getValue()) <= 90) {
-
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-			customImage[5].setSusceptibleImage();
-			customImage[6].setSusceptibleImage();
-			customImage[7].setSusceptibleImage();
-			customImage[8].setSusceptibleImage();
-		} else if (Integer.parseInt(sliderEvent.getValue()) > 90 && Integer.parseInt(sliderEvent.getValue()) <= 100) {
-			customImage[0].setSusceptibleImage();
-			customImage[1].setSusceptibleImage();
-			customImage[2].setSusceptibleImage();
-			customImage[3].setSusceptibleImage();
-			customImage[4].setSusceptibleImage();
-			customImage[5].setSusceptibleImage();
-			customImage[6].setSusceptibleImage();
-			customImage[7].setSusceptibleImage();
-			customImage[8].setSusceptibleImage();
-			customImage[9].setSusceptibleImage();
-
-		}
+		// TODO
+		// Make the configurable code to change the color of the image
 
 	}
 
 	@SuppressWarnings("unchecked")
-	private void imageChanger(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+	private void changeImageYourKid(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
 
 		// TODO Based on slider event count value - need to change the image
 
@@ -305,6 +246,117 @@ public class Page4 extends HorizontalLayout {
 		// setSickImages(sliderEvent, customImage));
 
 		startButton.setEnabled(false);
+
+	}
+
+	/**
+	 * The map for images based on the slider value selection
+	 * 
+	 * @param sliderValue
+	 * @return
+	 */
+	private Map<Integer, LinkedHashSet<Integer>> getColumnMap(int sliderValue) {
+
+		Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
+
+		int modulus = Math.round(sliderValue % 10);
+
+		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
+
+		int columnCount = nearestMultiple / 10;
+
+		System.out.println("Nearest Multiple : " + nearestMultiple);
+
+		System.out.println("Each Column number of image : " + columnCount);
+
+		System.out.println("Modulus : " + modulus + "\n");
+
+		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
+
+		// When Slider value less than 10 -> 1 image will be random selected from any
+		// column
+		if (columnCount == 0) {
+			while (columnList.size() < modulus) {
+
+				int columnValue = getRandomRow();
+				columnList.add(columnValue);
+			}
+
+			columnMap.put(columnCount, columnList);
+		}
+
+		// When Slider value More than 10 -> n images will be random selected from all
+		// columns
+		else {
+
+			while (columnList.size() < 10)
+
+			{
+				int columnValue = getRandomRow();
+				columnList.add(columnValue);
+			}
+
+			System.out.println("Column List : " + columnList);
+
+			// Creating the map for the first multiple of 10
+			for (Integer column : columnList) {
+				LinkedHashSet<Integer> imageList = getRandomList(columnCount);
+
+				columnMap.put(column, imageList);
+			}
+
+			// TODO Create image list for remaining images - modulus
+			int imageCountToRemove = 10 - modulus;
+			for (int i = 0; i < imageCountToRemove; i++)
+
+			{
+
+				LinkedHashSet<Integer> imageListRemoved = new LinkedHashSet<Integer>();
+				imageListRemoved = removeImage(columnMap.get(i));
+
+				columnMap.put(i, imageListRemoved);
+
+			}
+
+		}
+
+		System.out.println("Column Map : " + columnMap);
+
+		return columnMap;
+	}
+
+	/**
+	 * To remove the first element from the image list
+	 * 
+	 * @param imageList
+	 * @return
+	 */
+	private LinkedHashSet<Integer> removeImage(LinkedHashSet<Integer> imageList) {
+
+		imageList.remove(imageList.iterator().next());
+
+		return imageList;
+
+	}
+
+	/**
+	 * Based on column count it will return number 'random'
+	 * 
+	 * @param columnCount
+	 * @return
+	 */
+	public LinkedHashSet<Integer> getRandomList(int columnCount) {
+
+		LinkedHashSet<Integer> imageList = new LinkedHashSet<Integer>();
+
+		while (imageList.size() < columnCount)
+
+		{
+			int columnValue = getRandomRow();
+			imageList.add(columnValue);
+		}
+
+		return imageList;
 
 	}
 
@@ -367,5 +419,14 @@ public class Page4 extends HorizontalLayout {
 
 		resetButtonDiv.remove(resetButton);
 
+	}
+
+	public int getRandomRow() {
+
+		int randomRow = ((int) (Math.random() * ((9 - 0) + 1)) + 0);
+
+		rowArray.add(randomRow);
+
+		return randomRow;
 	}
 }
