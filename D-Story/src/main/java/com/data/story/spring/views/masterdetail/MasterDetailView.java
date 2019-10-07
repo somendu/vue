@@ -6,45 +6,32 @@ import com.data.story.spring.MainView;
 import com.data.story.spring.backend.BackendService;
 import com.data.story.spring.backend.Employee;
 import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.templatemodel.TemplateModel;
 
-@Tag("master-detail-view")
-@HtmlImport("frontend://src/views/master-detail-view.html")
-@Route(value = "masterDetail", layout = MainView.class)
-@RouteAlias(value = "", layout = MainView.class)
+@Route(value = "masterdetail", layout = MainView.class)
 @PageTitle("MasterDetail")
 @CssImport("styles/views/masterdetail/master-detail-view.css")
-//@Route(value = BakeryConst.PAGE_STOREFRONT, layout = MainView.class)
-//@RouteAlias(value = BakeryConst.PAGE_STOREFRONT_EDIT, layout = MainView.class)
-//@RouteAlias(value = BakeryConst.PAGE_ROOT, layout = MainView.class)
-//@PageTitle(BakeryConst.TITLE_STOREFRONT)
-
-public class MasterDetailView extends PolymerTemplate<TemplateModel> {
+public class MasterDetailView extends Div implements AfterNavigationObserver {
 
 	@Autowired
 	private BackendService service;
 
-	@Id("grid")
 	private Grid<Employee> employees;
 
 	private TextField firstname = new TextField();
@@ -91,8 +78,7 @@ public class MasterDetailView extends PolymerTemplate<TemplateModel> {
 		createGridLayout(splitLayout);
 		createEditorLayout(splitLayout);
 
-		// add(splitLayout);
-
+		add(splitLayout);
 	}
 
 	private void createEditorLayout(SplitLayout splitLayout) {
@@ -132,6 +118,14 @@ public class MasterDetailView extends PolymerTemplate<TemplateModel> {
 		field.getElement().getClassList().add("full-width");
 	}
 
+	@Override
+	public void afterNavigation(AfterNavigationEvent event) {
+
+		// Lazy init of the grid items, happens only when we are sure the view will be
+		// shown to the user
+		employees.setItems(service.getEmployees());
+	}
+
 	private void populateForm(Employee value) {
 		// Value can be null as well, that clears the form
 		binder.readBean(value);
@@ -139,5 +133,4 @@ public class MasterDetailView extends PolymerTemplate<TemplateModel> {
 		// The password field isn't bound through the binder, so handle that
 		password.setValue("");
 	}
-
 }
