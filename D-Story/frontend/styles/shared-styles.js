@@ -27,7 +27,6 @@ html {
     <style>
       [part="navbar"] {
         align-items: center;
-        justify-content: center;
       }
     </style>
   </template>

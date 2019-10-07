@@ -38,7 +38,6 @@ html {
     <style>
       [part="navbar"] {
         align-items: center;
-        justify-content: center;
       }
     </style>
   </template>
@@ -62,8 +61,6 @@ html {
       .highcharts-title {
         fill: var(--lumo-header-text-color);
         font-size: var(--lumo-font-size-xl);
-        font-weight: 600;
-        line-height: var(--lumo-line-height-xs);
       }
       .highcharts-legend-item text {
         fill: var(--lumo-body-text-color);
@@ -96,9 +93,6 @@ html {
       [part~="header-cell"]:not(:empty):not([details-cell]) {
         padding-top: var(--lumo-space-l);
         padding-bottom: var(--lumo-space-m);
-
-        font-size: var(--lumo-font-size-s);
-        border-bottom: 1px solid var(--lumo-shade-5pct);
       }
 
       :host(:not([theme~="no-row-borders"])) [part~="cell"]:not([part~="details-cell"]) {
@@ -132,7 +126,7 @@ html {
         padding: 0;
       }
 
-      :host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
+      :host([theme~="image-compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
 		    padding: var(--lumo-space-xs);
       }
 
