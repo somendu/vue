@@ -14,6 +14,7 @@ import com.vaadin.flow.server.BootstrapPageResponse;
  * </ul>
  */
 public class CustomBootstrapListener implements BootstrapListener {
+
 	@Override
 	public void modifyBootstrapPage(BootstrapPageResponse response) {
 
