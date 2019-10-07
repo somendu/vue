@@ -23,13 +23,16 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.som.myapp.spring.MainView;
+import com.som.myapp.spring.ui.common.CustomGrid;
 import com.som.myapp.spring.ui.common.CustomImage;
+import com.som.myapp.spring.ui.common.DivExtended;
 import com.som.myapp.spring.ui.common.PaperSlider;
 import com.som.myapp.spring.ui.common.PaperSliderChangEvent;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -37,6 +40,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
@@ -48,22 +52,24 @@ import com.vaadin.flow.shared.Registration;
  * Implemented using a simple template.
  */
 
-@Route(value = "Page4", layout = MainView.class)
-@PageTitle("Page 4")
-@Tag("page4-list")
-
-public class Page4 extends HorizontalLayout {
+@Route(value = "ImageChange", layout = MainView.class)
+@PageTitle("Image Change")
+@Tag("image-change")
+@HtmlImport("./src/views/image-change.html")
+public class ImageChange extends HorizontalLayout {
 
 	CustomImage customImageTransfer = new CustomImage();
 
-	Div gridDiv = new Div();
+	DivExtended gridDiv = new DivExtended();
 	Div sliderDiv = new Div();
 	Div labelDiv = new Div();
 
 	Div resetButtonDiv = new Div();
 
 	List<CustomImage> imageList = new ArrayList<CustomImage>();
-	Grid<CustomImage> grid = new Grid<CustomImage>();
+
+	@Id("image-grid")
+	CustomGrid grid = new CustomGrid();
 
 	CustomImage customImage = new CustomImage();
 	CustomImage customImageTwo = new CustomImage();
@@ -97,7 +103,9 @@ public class Page4 extends HorizontalLayout {
 
 	List<Integer> rowArray = new ArrayList<Integer>();
 
-	public Page4() {
+	Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
+
+	public ImageChange() {
 
 		initWidget();
 
@@ -105,13 +113,17 @@ public class Page4 extends HorizontalLayout {
 
 	private void initWidget() {
 
+		addComponentAtIndex(0, sliderDiv);
+		addComponentAtIndex(1, labelDiv);
+		addComponentAtIndex(2, gridDiv);
+
 		gridDiv.setId("gridDiv-push-me-2");
 
 		sliderDiv.setId("sliderDiv-push-me-2");
 
 		labelDiv.setId("labelDiv-push-me-2");
 
-		grid.setId("grid");
+		// grid.setId("grid");
 
 //		CustomImage customImage = new CustomImage();
 
@@ -138,6 +150,19 @@ public class Page4 extends HorizontalLayout {
 		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
 				GridVariant.LUMO_WRAP_CELL_CONTENT, GridVariant.LUMO_COMPACT);
 
+		// :host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content)
+		// {
+		// padding: var(--lumo-space-xs);
+		// }
+
+		//
+
+		System.out.println("Page Size : " + grid.getPageSize());
+
+		for (int i = 0; i < 10; i++) {
+			grid.getColumns().get(i).getElement().getStyle().set("padding", "var(--lumo-space-s)");
+
+		}
 		grid.setHeightByRows(true);
 
 		List<Column<CustomImage>> columnsList = grid.getColumns();
@@ -158,13 +183,20 @@ public class Page4 extends HorizontalLayout {
 
 		startButton.setEnabled(false);
 
-		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
-				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
-				customImageTen, customImageEleven));
+//		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
+//				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
+//				customImageTen, customImageEleven));
 
-		addComponentAtIndex(0, sliderDiv);
-		addComponentAtIndex(1, labelDiv);
-		addComponentAtIndex(2, gridDiv);
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder
+				.set(paperSlider.addChangeListener((ComponentEventListener<PaperSliderChangEvent>) slideEvent -> {
+					registrationHolder.get().remove();
+					registrationHolder.set(null);
+					changeSusceptibleImage(slideEvent, customImageTwo, customImageThree, customImageFour,
+							customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
+							customImageTen, customImageEleven);
+				}));
+
 		// addComponentAtIndex(3, startButton);
 
 	}
@@ -211,8 +243,10 @@ public class Page4 extends HorizontalLayout {
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
 			registrationHolder.get().remove();
 			registrationHolder.set(null);
-			changeImageYourKid(sliderEvent, customImage);
+			changeImageYourKid(sliderEvent, columnSet, customImage);
 		}));
+
+//		gridDiv.getElement().addEventListener("scroll", new ScrollEventListener());
 		// }
 
 		valueLabel.setText(sliderEvent.getValue());
@@ -228,24 +262,82 @@ public class Page4 extends HorizontalLayout {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void changeImageYourKid(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+	private void changeImageYourKid(PaperSliderChangEvent sliderEvent,
+			Map<Integer, LinkedHashSet<Integer>> customPassedSet, CustomImage... customImage) {
+
+		// Setting always the element from the second column
+
+		LinkedHashSet<Integer> integerSet = new LinkedHashSet<Integer>();
+
+		List<Integer> listInt = new ArrayList<Integer>();
+
+		int i = 0;
+		while (i < customPassedSet.size()) {
+			LinkedHashSet<Integer> innerSet = customPassedSet.get(i);
+
+			if (innerSet.isEmpty()) {
+				i++;
+				continue;
+
+			} else {
+				integerSet.addAll(innerSet);
+				integerSet.add(i);
+				break;
+			}
+
+		}
+
+		for (Integer integer : integerSet) {
+			listInt.add(integer);
+		}
+		int positionYourKid = integerSet.iterator().next();
+
+		int mapPosition = listInt.get(listInt.size() - 1);
 
 		// TODO Based on slider event count value - need to change the image
 
-		// TODO Set the susceptible/infected your child image as well
-		customImage[2].getImageOne().setSrc("/images/susceptible-your-child.png");
+		customImage[mapPosition].getImageMap().get(positionYourKid).setSrc("/images/susceptible-your-child.png");
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
 			registrationHolder.get().remove();
 			registrationHolder.set(null);
-			setSickImages(sliderEvent, customImage);
+
+			// TODO Set First Sick Image
+
+			setFirstSickImage(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
+//			setSickImages(sliderEvent, customImage);
 		}));
 
-		// gridFirstCLick = gridDiv.addClickListener(gridEvent ->
-		// setSickImages(sliderEvent, customImage));
-
 		startButton.setEnabled(false);
+
+	}
+
+	/**
+	 * Setting first sick image
+	 * 
+	 * @param sliderEvent
+	 * @param customPassedSet
+	 * @param customImage
+	 */
+	private void setFirstSickImage(PaperSliderChangEvent sliderEvent,
+			Map<Integer, LinkedHashSet<Integer>> customPassedSet, Integer mapPosition, Integer positionYourKid,
+			CustomImage... customImage) {
+
+		// Setting always the element from the third column
+		LinkedHashSet<Integer> integerSet = customPassedSet.get(3);
+
+		// Based on slider event count value - need to change the image
+		customImage[3].getImageMap().get(4).setSrc("/images/infected.png");
+
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+
+			// TODO THis will take image to change from the yellow ones only
+			setSickImages(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
+		}));
 
 	}
 
@@ -257,19 +349,17 @@ public class Page4 extends HorizontalLayout {
 	 */
 	private Map<Integer, LinkedHashSet<Integer>> getColumnMap(int sliderValue) {
 
-		Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
-
 		int modulus = Math.round(sliderValue % 10);
 
 		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
 
 		int columnCount = nearestMultiple / 10;
 
-		System.out.println("Nearest Multiple : " + nearestMultiple);
+		// System.out.println("Nearest Multiple : " + nearestMultiple);
 
-		System.out.println("Each Column number of image : " + columnCount);
+//		System.out.println("Each Column number of image : " + columnCount);
 
-		System.out.println("Modulus : " + modulus + "\n");
+//		System.out.println("Modulus : " + modulus + "\n");
 
 		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
 
@@ -305,7 +395,7 @@ public class Page4 extends HorizontalLayout {
 				columnMap.put(column, imageList);
 			}
 
-			// TODO Create image list for remaining images - modulus
+			// Create image list for remaining images - modulus
 			int imageCountToRemove = 10 - modulus;
 			for (int i = 0; i < imageCountToRemove; i++)
 
@@ -360,67 +450,117 @@ public class Page4 extends HorizontalLayout {
 
 	}
 
-	private void setSickImages(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+	private void setSickImages(PaperSliderChangEvent sliderEvent, Map<Integer, LinkedHashSet<Integer>> customPassedSet,
+			Integer mapPosition, Integer positionYourKid, CustomImage... customImage) {
 
-		customImage[7].setInfectedImage();
-		customImage[8].setInfectedImage();
-		customImage[9].setInfectedImage();
+		// TODO Set Sick images taking few from the previous one
+
+//		customImage[7].setInfectedImage();
+//		customImage[8].setInfectedImage();
+//		customImage[9].setInfectedImage();
+
+		// TODO Check the size based on which color need to change
+
+		for (Integer key : customPassedSet.keySet()) {
+
+			Map<Integer, Image> map = customImage[key].getImageMap();
+
+			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
+
+			if (key == mapPosition) {
+				integerSet.remove(positionYourKid);
+			}
+
+			if (!(integerSet.isEmpty())) {
+				integerSet.remove(integerSet.iterator().next());
+			}
+			if (!(integerSet.isEmpty())) {
+				integerSet.remove(integerSet.iterator().next());
+			}
+
+			for (Integer hashInt : integerSet) {
+				map.get(hashInt).setSrc("/images/infected.png");
+			}
+			// }
+
+		}
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
 			registrationHolder.get().remove();
 			registrationHolder.set(null);
-			setInfectedChild(sliderEvent, customImage);
+
+			// TODO This will be effective only based on Formula
+			setInfectedChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
 		}));
 
 	}
 
-	private void setInfectedChild(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+	/**
+	 * Setting your kid as infected
+	 * 
+	 * @param sliderEvent
+	 * @param customPassedSet
+	 * @param customImage
+	 */
+	private void setInfectedChild(PaperSliderChangEvent sliderEvent,
+			Map<Integer, LinkedHashSet<Integer>> customPassedSet, Integer mapPosition, Integer positionYourKid,
+			CustomImage... customImage) {
 
-		customImage[2].getImageOne().setSrc("/images/infected-your-child.png");
+		// Setting always the element from the second column
+//		LinkedHashSet<Integer> integerSet = customPassedSet.get(2);
+//
+//		Integer positionYourKid = integerSet.iterator().next();
 
-		// resetButtonDiv.add(resetButton);
-		// addComponentAtIndex(3, resetButtonDiv);
-		sliderEvent.getSource().getElement().removeAttribute("disabled");
+		customImage[mapPosition].getImageMap().get(positionYourKid).setSrc("/images/infected-your-child.png");
 
-		resetButton.addClickListener(resetClick -> reset(sliderEvent, customImage));
+		// Reset Everything on Click
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+
+			resetAll(sliderEvent, customPassedSet, customImage);
+
+		}));
 
 	}
 
-	private void reset(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+	/**
+	 * Resetting Back
+	 * 
+	 * @param sliderEvent
+	 * @param customPassedSet
+	 * @param customImage
+	 */
+	private void resetAll(PaperSliderChangEvent sliderEvent, Map<Integer, LinkedHashSet<Integer>> customPassedSet,
+			CustomImage... customImage) {
 
-		// TODO slider need to call once the change animation completed
 		sliderEvent.getSource().getElement().removeAttribute("disabled");
-		sliderDiv.remove(paperSlider);
+		for (CustomImage customImageSingle : customImage) {
+			customImageSingle.setVaccinatedImage();
 
-		// TODO
-		// Check to reinitiate the Slider
-		paperSlider = new PaperSlider("0", "100", "0");
-		sliderDiv.add(paperSlider);
+		}
 
 		valueLabel.setText(paperSlider.getInitValue());
 
-		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
-				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
-				customImageTen, customImageEleven, customImageTwelve, customImageThirteen, customImageFourteen));
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder
+				.set(paperSlider.addChangeListener((ComponentEventListener<PaperSliderChangEvent>) slideEvent -> {
+					registrationHolder.get().remove();
+					registrationHolder.set(null);
 
-		customImage[0].setImage();
-		customImage[1].setImage();
-		customImage[2].setImage();
-		customImage[3].setImage();
-		customImage[4].setImage();
-		customImage[5].setImage();
-		customImage[6].setImage();
-		customImage[7].setImage();
-		customImage[8].setImage();
-		customImage[9].setImage();
-
-		startButton.setEnabled(false);
-
-		resetButtonDiv.remove(resetButton);
-
+					changeSusceptibleImage(slideEvent, customImageTwo, customImageThree, customImageFour,
+							customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
+							customImageTen, customImageEleven);
+				}));
 	}
 
+	/**
+	 * Getting a random row
+	 * 
+	 * @return
+	 */
 	public int getRandomRow() {
 
 		int randomRow = ((int) (Math.random() * ((9 - 0) + 1)) + 0);
