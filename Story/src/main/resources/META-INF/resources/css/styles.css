@@ -1,0 +1,57 @@
+html {
+  color: red;
+}
+
+.container{
+    width: 80px;
+    height: 80px;
+    position: relative;
+}
+.container div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 60px;
+    opacity: 0;
+}
+.container div:nth-child(1) {
+    background-color: yellow;
+    opacity: 1;
+}
+.container:hover div {
+    -webkit-animation: anim 5s infinite; 
+    animation: anim 5s infinite; 
+}
+.container div:nth-child(2) {
+    -webkit-animation-delay: -4s;
+    animation-delay: -4s;
+}
+.container div:nth-child(3) {
+    -webkit-animation-delay: -3s;
+    animation-delay: -3s;
+}
+.container div:nth-child(4) {
+    -webkit-animation-delay: -2s;
+    animation-delay: -2s;
+}
+.container div:nth-child(5) {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+@-webkit-keyframes anim {
+    0%, 15% {opacity: 1;}
+    20%, 95% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes anim {
+    0%, 15% {opacity: 1;}
+    20%, 95% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+:host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content){
+   padding: var(--lumo-space-xs);
+}
+
