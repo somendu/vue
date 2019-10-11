@@ -3,7 +3,6 @@
  */
 package com.data.story.spring.views.common;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.dom.DomEventListener;
 
@@ -19,9 +18,10 @@ public class DivExtended extends Div {
 
 		Div div = new Div();
 		add(div);
-		div.getElement().addEventListener("scroll", l);
-		getElement().addEventListener("scroll", l);
-		UI.getCurrent().getElement().addEventListener("scroll", l);
+//		div.getElement().addEventListener("scroll", l);
+//		getElement().addEventListener("scroll", l);
+//		UI.getCurrent().getElement().addEventListener("scroll", l);
+
 	}
 
 }

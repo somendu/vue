@@ -121,7 +121,7 @@ public class MasterDetailView extends Div implements AfterNavigationObserver {
 
 		// Lazy init of the grid items, happens only when we are sure the view will be
 		// shown to the user
-		employees.setItems(service.getEmployees());
+//		employees.setItems(service.getEmployees());
 	}
 
 	private void populateForm(Employee value) {

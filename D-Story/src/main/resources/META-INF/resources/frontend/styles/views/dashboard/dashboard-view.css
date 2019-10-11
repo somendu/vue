@@ -64,13 +64,3 @@ vaadin-board {
 .success-text {
     color: var(--lumo-success-text-color);
 }
-
-/* Charts */
-vaadin-chart {
-    padding-top: var(--lumo-space-s);
-}
-
-/* Grid */
-vaadin-grid {
-    height: 300px;
-}

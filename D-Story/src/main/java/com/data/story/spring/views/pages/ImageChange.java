@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.data.story.spring.MainView;
 import com.data.story.spring.views.common.CustomGrid;
 import com.data.story.spring.views.common.CustomImage;
 import com.data.story.spring.views.common.DivExtended;
@@ -32,16 +31,17 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.dom.DomEvent;
+import com.vaadin.flow.dom.DomEventListener;
 import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.shared.Registration;
 
 /**
@@ -51,11 +51,13 @@ import com.vaadin.flow.shared.Registration;
  * Implemented using a simple template.
  */
 
-@Route(value = "ImageChange", layout = MainView.class)
-@RouteAlias(value = "", layout = MainView.class)
+//@Route(value = "ImageChange", layout = MainView.class)
+//@RouteAlias(value = "", layout = MainView.class)
 @PageTitle("Image Change")
 @Tag("image-change")
-public class ImageChange extends HorizontalLayout {
+@CssImport(value = "./styles/views/imagechange/image-change.css", include = "lumo-badge")
+@JsModule("@vaadin/vaadin-lumo-styles/badge.js")
+public class ImageChange extends Div {
 
 	CustomImage customImageTransfer = new CustomImage();
 
@@ -105,27 +107,64 @@ public class ImageChange extends HorizontalLayout {
 
 	public ImageChange() {
 
+		setId("image-change");
 		initWidget();
 
+//		setAlignItems(Alignment.CENTER);
+		// setWidth("70%");
+
+		getElement().addEventListener("scroll", new DomEventListener() {
+
+			@Override
+			public void handleEvent(DomEvent event) {
+
+				System.out.println("Scroll Check");
+
+			}
+		});
+
+		gridDiv.getElement().addEventListener("scroll", new DomEventListener() {
+
+			@Override
+			public void handleEvent(DomEvent event) {
+
+				System.out.println("Grid Scroll Check");
+
+			}
+		});
+//		getElement().addEventListener("mouseleave", new DomEventListener() {
+//
+//			@Override
+//			public void handleEvent(DomEvent event) {
+//
+//				// System.out.println("Moouse Leaved");
+//
+//			}
+//		});
 	}
 
 	private void initWidget() {
 
+		sliderDiv.setId("slider-div");
+		labelDiv.setId("label-div");
+		gridDiv.setId("grid-div");
+
+		sliderDiv.addClassName("wrapper");
+
+		// grid.getElement().getStyle().set("display", "contents");
+
 		addComponentAtIndex(0, sliderDiv);
 		addComponentAtIndex(1, labelDiv);
+
+		// TODO Add a Label which changes according to the percentage
+
 		addComponentAtIndex(2, gridDiv);
 
-		gridDiv.setId("gridDiv-push-me-2");
+		// TODO Add second Label which changes according to the percentage
 
-		sliderDiv.setId("sliderDiv-push-me-2");
+		DomEventListener l = e -> System.out.println("invoked!");
 
-		labelDiv.setId("labelDiv-push-me-2");
-
-		// grid.setId("grid");
-
-//		CustomImage customImage = new CustomImage();
-
-		//
+		gridDiv.getElement().addEventListener("scroll", l);
 
 		imageList.add(customImage);
 
@@ -148,19 +187,8 @@ public class ImageChange extends HorizontalLayout {
 		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
 				GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-		// :host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content)
-		// {
-		// padding: var(--lumo-space-xs);
-		// }
+//		gridDiv.getElement().getStyle().set("display", "block");
 
-		//
-
-		System.out.println("Page Size : " + grid.getPageSize());
-
-		for (int i = 0; i < 10; i++) {
-			grid.getColumns().get(i).getElement().getStyle().set("padding", "var(--lumo-space-s)");
-
-		}
 		grid.setHeightByRows(true);
 
 		List<Column<CustomImage>> columnsList = grid.getColumns();
@@ -181,10 +209,6 @@ public class ImageChange extends HorizontalLayout {
 
 		startButton.setEnabled(false);
 
-//		paperSlider.addChangeListener(slideEvent -> changeSusceptibleImage(slideEvent, customImageTwo, customImageThree,
-//				customImageFour, customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
-//				customImageTen, customImageEleven));
-
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder
 				.set(paperSlider.addChangeListener((ComponentEventListener<PaperSliderChangEvent>) slideEvent -> {
@@ -194,8 +218,6 @@ public class ImageChange extends HorizontalLayout {
 							customImageFive, customImageSix, customImageSeven, customImageEight, customImageNine,
 							customImageTen, customImageEleven);
 				}));
-
-		// addComponentAtIndex(3, startButton);
 
 	}
 
@@ -269,17 +291,17 @@ public class ImageChange extends HorizontalLayout {
 
 		List<Integer> listInt = new ArrayList<Integer>();
 
-		int i = 0;
-		while (i < customPassedSet.size()) {
-			LinkedHashSet<Integer> innerSet = customPassedSet.get(i);
+		int setCount = 0;
+		while (setCount < customPassedSet.size()) {
+			LinkedHashSet<Integer> innerSet = customPassedSet.get(setCount);
 
 			if (innerSet.isEmpty()) {
-				i++;
+				setCount++;
 				continue;
 
 			} else {
 				integerSet.addAll(innerSet);
-				integerSet.add(i);
+				integerSet.add(setCount);
 				break;
 			}
 
@@ -288,6 +310,7 @@ public class ImageChange extends HorizontalLayout {
 		for (Integer integer : integerSet) {
 			listInt.add(integer);
 		}
+
 		int positionYourKid = integerSet.iterator().next();
 
 		int mapPosition = listInt.get(listInt.size() - 1);
@@ -302,9 +325,8 @@ public class ImageChange extends HorizontalLayout {
 			registrationHolder.set(null);
 
 			// TODO Set First Sick Image
-
 			setFirstSickImage(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
-//			setSickImages(sliderEvent, customImage);
+
 		}));
 
 		startButton.setEnabled(false);
@@ -322,18 +344,32 @@ public class ImageChange extends HorizontalLayout {
 			Map<Integer, LinkedHashSet<Integer>> customPassedSet, Integer mapPosition, Integer positionYourKid,
 			CustomImage... customImage) {
 
-		// Setting always the element from the third column
-		LinkedHashSet<Integer> integerSet = customPassedSet.get(3);
+		int keyValue = getRandomRow();
 
-		// Based on slider event count value - need to change the image
-		customImage[3].getImageMap().get(4).setSrc("/images/infected.png");
+		int valKey = 0;
+
+		for (Integer key : customPassedSet.keySet()) {
+
+			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
+
+			if (key == mapPosition || key == keyValue) {
+				integerSet.remove(positionYourKid);
+				continue;
+			} else {
+				valKey = keyValue;
+				break;
+
+			}
+		}
+
+		// Changing a random image for first sick
+		customImage[valKey].getImageMap().get(valKey).setSrc("/images/infected.png");
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
 			registrationHolder.get().remove();
 			registrationHolder.set(null);
 
-			// TODO THis will take image to change from the yellow ones only
 			setSickImages(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
 		}));
 
@@ -352,12 +388,6 @@ public class ImageChange extends HorizontalLayout {
 		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
 
 		int columnCount = nearestMultiple / 10;
-
-		// System.out.println("Nearest Multiple : " + nearestMultiple);
-
-//		System.out.println("Each Column number of image : " + columnCount);
-
-//		System.out.println("Modulus : " + modulus + "\n");
 
 		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
 
@@ -395,20 +425,18 @@ public class ImageChange extends HorizontalLayout {
 
 			// Create image list for remaining images - modulus
 			int imageCountToRemove = 10 - modulus;
-			for (int i = 0; i < imageCountToRemove; i++)
+			for (int removeCounter = 0; removeCounter < imageCountToRemove; removeCounter++)
 
 			{
 
 				LinkedHashSet<Integer> imageListRemoved = new LinkedHashSet<Integer>();
-				imageListRemoved = removeImage(columnMap.get(i));
+				imageListRemoved = removeImage(columnMap.get(removeCounter));
 
-				columnMap.put(i, imageListRemoved);
+				columnMap.put(removeCounter, imageListRemoved);
 
 			}
 
 		}
-
-		System.out.println("Column Map : " + columnMap);
 
 		return columnMap;
 	}
@@ -448,16 +476,17 @@ public class ImageChange extends HorizontalLayout {
 
 	}
 
+	/**
+	 * Setting sick images
+	 * 
+	 * @param sliderEvent
+	 * @param customPassedSet
+	 * @param mapPosition
+	 * @param positionYourKid
+	 * @param customImage
+	 */
 	private void setSickImages(PaperSliderChangEvent sliderEvent, Map<Integer, LinkedHashSet<Integer>> customPassedSet,
 			Integer mapPosition, Integer positionYourKid, CustomImage... customImage) {
-
-		// TODO Set Sick images taking few from the previous one
-
-//		customImage[7].setInfectedImage();
-//		customImage[8].setInfectedImage();
-//		customImage[9].setInfectedImage();
-
-		// TODO Check the size based on which color need to change
 
 		for (Integer key : customPassedSet.keySet()) {
 
@@ -479,7 +508,6 @@ public class ImageChange extends HorizontalLayout {
 			for (Integer hashInt : integerSet) {
 				map.get(hashInt).setSrc("/images/infected.png");
 			}
-			// }
 
 		}
 
@@ -504,11 +532,6 @@ public class ImageChange extends HorizontalLayout {
 	private void setInfectedChild(PaperSliderChangEvent sliderEvent,
 			Map<Integer, LinkedHashSet<Integer>> customPassedSet, Integer mapPosition, Integer positionYourKid,
 			CustomImage... customImage) {
-
-		// Setting always the element from the second column
-//		LinkedHashSet<Integer> integerSet = customPassedSet.get(2);
-//
-//		Integer positionYourKid = integerSet.iterator().next();
 
 		customImage[mapPosition].getImageMap().get(positionYourKid).setSrc("/images/infected-your-child.png");
 

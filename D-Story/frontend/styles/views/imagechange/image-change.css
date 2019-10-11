@@ -1,4 +1,4 @@
-#dashboard-view {
+#image-change {
     background-color: var(--lumo-contrast-10pct);
     box-sizing: border-box;
     display: block;
@@ -6,8 +6,23 @@
     height: 100%;
     overflow: auto;
     padding: var(--lumo-space-m) var(--lumo-space-l);
+    text-align: center;
 }
 
+#slider-div {
+    display: inline-block;
+    width: 65%;
+}
+
+#label-div {
+    display: inline-flex;
+    width: 64%;
+}
+
+
+.image-display {
+    display: contents;
+}
 
 vaadin-board {
     margin: 0 auto;
@@ -63,4 +78,15 @@ vaadin-board {
 
 .success-text {
     color: var(--lumo-success-text-color);
+}
+
+/* Charts */
+vaadin-chart {
+    padding-top: var(--lumo-space-s);
+}
+
+/* Grid */
+vaadin-grid {
+    height: 20%;
+    width: 64%;
 }

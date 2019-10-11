@@ -16,6 +16,7 @@ public class CustomGrid extends Grid<CustomImage> {
 
 		setId("image-grid");
 		setThemeName("image-compact");
+		// addClassName("image-display");
 
 	}
 }

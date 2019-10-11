@@ -1,4 +1,4 @@
-#dashboard-view {
+#main-view {
     background-color: var(--lumo-contrast-10pct);
     box-sizing: border-box;
     display: block;
@@ -7,6 +7,24 @@
     overflow: auto;
     padding: var(--lumo-space-m) var(--lumo-space-l);
 }
+
+
+.divClass {
+    border: 1px solid black;
+  width: 200px;
+  height: 100px;
+  overflow: scroll;
+}
+
+
+.divPosition526 {
+  position: absolute; z-index: 0; left: 526px; top: 129.2px; opacity: 1;
+}
+
+.divPosition762 {
+  position: absolute; z-index: 0; left: 762px; top: 129.2px; opacity: 1;
+}
+
 
 
 vaadin-board {

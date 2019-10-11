@@ -29,7 +29,7 @@ import com.vaadin.flow.router.PageTitle;
 //@Route(value = "dashboard", layout = MainView.class)
 //@RouteAlias(value = "", layout = MainView.class)
 @PageTitle("Dashboard")
-@CssImport(value = "styles/views/dashboard/dashboard-view.css", include = "lumo-badge")
+@CssImport(value = "./styles/views/dashboard/dashboard-view.css", include = "lumo-badge")
 @JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class DashboardView extends Div implements AfterNavigationObserver {
 

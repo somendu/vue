@@ -78,6 +78,10 @@ html {
         stroke: var(--lumo-base-color);
       }
     </style>
+
+    <image-change id="imageChange"></image-change>
+
+    
   </template>
 </dom-module>
 
@@ -221,6 +225,16 @@ html {
         display: flex;
         flex-direction: column;
         flex: auto;
+      }
+
+      .center-align {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4em;
+        height: 4em;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
       }
     </style>
   </template>
