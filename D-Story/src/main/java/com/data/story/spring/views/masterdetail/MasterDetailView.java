@@ -2,6 +2,7 @@ package com.data.story.spring.views.masterdetail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.data.story.spring.MainView;
 import com.data.story.spring.backend.BackendService;
 import com.data.story.spring.backend.Employee;
 import com.vaadin.flow.component.AbstractField;
@@ -21,8 +22,9 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 
-//@Route(value = "masterdetail", layout = MainView.class)
+@Route(value = "masterdetail", layout = MainView.class)
 @PageTitle("MasterDetail")
 @CssImport("styles/views/masterdetail/master-detail-view.css")
 public class MasterDetailView extends Div implements AfterNavigationObserver {

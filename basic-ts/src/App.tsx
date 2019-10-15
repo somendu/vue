@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 
 import ButtonsShowcase from './showcases/Buttons'
 import ToastsShowcase from './showcases/Toasts'
- 
+import TableShowcase from './showcases/ImageTable'
 
 const App: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <h2>Buttons</h2>
       <ButtonsShowcase/>
       <h2>Toasts</h2>
-      <ToastsShowcase/>
+      <TableShowcase/>
       <h3>First</h3>
 
     </Container>

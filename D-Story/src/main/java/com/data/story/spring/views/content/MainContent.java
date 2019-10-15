@@ -4,13 +4,14 @@
 package com.data.story.spring.views.content;
 
 import com.data.story.spring.MainView;
-import com.data.story.spring.views.dashboard.DashboardView;
-import com.data.story.spring.views.masterdetail.MasterDetailView;
+import com.data.story.spring.views.common.DivComponent;
 import com.data.story.spring.views.pages.ImageChange;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.dom.DomEvent;
+import com.vaadin.flow.dom.DomEventListener;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
@@ -27,11 +28,17 @@ import com.vaadin.flow.router.RouteAlias;
 @PageTitle("Story")
 public class MainContent extends Div {
 
+//	private TextComponent firstText = new TextComponent();
+
 	private ImageChange imageChange = new ImageChange();
 
-	private DashboardView dashboardView = new DashboardView();
+//	private TextComponent secondText = new TextComponent();
 
-	private MasterDetailView masterDetailView = new MasterDetailView();
+//	private TextComponent thirdText = new TextComponent();
+
+//	private DashboardView dashboardView = new DashboardView();
+
+//	private MasterDetailView masterDetailView = new MasterDetailView();
 
 	public MainContent() {
 
@@ -39,36 +46,43 @@ public class MainContent extends Div {
 
 		setId("main-content");
 
-		Div headerDiv = new Div();
+		Board board = new Board();
 
-		HorizontalLayout header = new HorizontalLayout();
-		header.getElement().getStyle().set("display", "block");
+		// TODO This text to come dynamically
+		// firstText.setComponentText("Ontdek hier waarom vaccinaties belangrijk zijn
+		// voor de gezondheid van jouw kind.");
 
-		// Board board = new Board();
+		// secondText.setComponentText(
+		// "Zoals je hierboven ziet kan de ziekte zich gemakkelijk verspreiden door de
+		// groep. Veel kinderen, waaronder jouw ongevaccineerde kind, worden ziek.");
 
-		Label newLabel = new Label("Label Here");
+//		thirdText.setComponentText(
+//				"Dit komt doordat kinderen die ziek zijn in contact te komen met kinderen die niet gevaccineerd zijn. Als dit gebeurt kunnen ze deze kinderen besmetten en zo verspreidt de ziekte zich door de groep. ");
 
-		header.addComponentAtIndex(0, imageChange);
-		// header.addComponentAtIndex(1, dashboardView);
-		// header.addComponentAtIndex(2, masterDetailView);
-		header.setWidthFull();
+//		DivComponent imageComponent = new DivComponent("test",
+//				new Component[] { firstText, imageChange, secondText, thirdText }, "test");
 
-		add(header);
+		DivComponent imageComponent = new DivComponent("test", new Component[] { imageChange }, "test");
 
-//		headerDiv.set
+//		UI.getCurrent().getPage().executeJS("window.addEventListener('scroll', function(){ console.error('oooo');});");
 
-//		headerDiv.add(header);
+//		imageComponent.getElement().executeJs("window.addEventListener('scroll', function(){ console.error('oooo');});",
+//				"");
+
+		board.add(imageComponent);
+
+		add(board);
 
 		// add(headerDiv);
-//		getElement().addEventListener("mouseleave", new DomEventListener() {
-//
-//			@Override
-//			public void handleEvent(DomEvent event) {
-//
-//				System.out.println("Mouse Leave in Mani COntent");
-//
-//			}
-//		});
+		imageComponent.getElement().addEventListener("scroll", new DomEventListener() {
+
+			@Override
+			public void handleEvent(DomEvent event) {
+
+				System.out.println("Scroll Track");
+
+			}
+		});
 
 	}
 

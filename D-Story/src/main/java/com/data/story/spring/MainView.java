@@ -1,17 +1,10 @@
 package com.data.story.spring;
 
-import com.data.story.spring.views.content.MainContent;
+import com.data.story.spring.views.pages.ImageChange;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.page.Page;
-import com.vaadin.flow.dom.DomEvent;
-import com.vaadin.flow.dom.DomEventListener;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -22,122 +15,38 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 @Tag("main-view")
 @CssImport(value = "./styles/views/main-view.css", include = "lumo-badge")
-//@Route
 @JsModule("./styles/shared-styles.js")
-//@JsModule("./styles/main-view.js")
-
 @PWA(name = "Story", shortName = "Story")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
-//@Push
 public class MainView extends AppLayout {
-
-	// private final Tabs menu;
-
-	private MainContent mainContent = new MainContent();
-
-	public MainView() {
-
-		// TODO Change the routes accordingly
-
-		setId("main-view");
-
-		Div header = new Div();
-		Div imageSDiv = new Div();
-		Div imageIDiv = new Div();
-		header.getElement().getStyle().set("display", "block");
-
-		// Board board = new Board();
-
-		Image imageS = new Image("/images/susceptible.png", "susceptible");
-
-		Image imageI = new Image("/images/infected.png", "infected");
-
-		Label label = new Label("Label Here");
-
-		Label newLabel = new Label("Label Here");
-
-		setImageSize(imageS);
-		imageSDiv.add(imageS);
-		setImageSize(imageI);
-		imageIDiv.add(imageI);
-
-		imageSDiv.addClassName("divPosition762");
-
-		Page page = UI.getCurrent().getPage();
-
-		mainContent.getElement().addEventListener("scroll", new DomEventListener() {
-
-			@Override
-			public void handleEvent(DomEvent event) {
-
-				System.out.println("Scroll Check ");
-
-			}
-		});
-
-//		mainContent.getElement().addEventListener("mouseleave", new DomEventListener() {
-//
-//			@Override
-//			public void handleEvent(DomEvent event) {
-//
-//				System.out.println("Mouse Leave");
-//
-//			}
-//		});
-
-//		imageSDiv.getElement().addEventListener("scroll", new DomEventListener() {
-//
-//			@Override
-//			public void handleEvent(DomEvent event) {
-//
-//				imageSDiv.removeClassName("divPosition762");
-//				imageSDiv.addClassName("divPosition526");
-//
-//			}
-//		});
-
-//		header.addComponentAtIndex(0, imageS);
-//
-//		header.addComponentAtIndex(1, mainContent);
-//
-//		header.addComponentAtIndex(2, imageI);
-
-		header.add(mainContent);
-
-//		header.add(mainContent);
-		header.setWidthFull();
-
-		setContent(header);
-
-//		headerDiv.set
-
-//		headerDiv.add(header);
-
-		// add(headerDiv);
-
-	}
-
-	/**
-	 * Setting Image Size
-	 * 
-	 * @param image
-	 */
-	private void setImageSize(Image image) {
-
-		image.setWidth("29px");
-		image.setHeight("39px");
-
-	}
 
 //	private final Tabs menu;
 //
-//	public MainView() {
+//	private TextComponent titleText = new TextComponent();
+
+	private ImageChange imageChange = new ImageChange();
+
+	public MainView() {
+
+//		UI.getCurrent().getPage().setTitle("Title Here");
+//		Image img = new Image("https://i.imgur.com/GPpnszs.png", "Vaadin Logo");
+//		img.setHeight("44px");
+//		titleText.setComponentText("Title Text");
+//		titleText.getElement().getStyle().set("padding-left", "1.5%");
+//		addToNavbar(titleText);
+
 //		menu = createMenuTabs();
 //		addToNavbar(menu);
-//	}
-//
+
+		// UI.getCurrent().getPage().executeJs("window.addEventListener('scroll',
+		// function(){ console.error('oooo');});", "$0");
+
+		setContent(imageChange);
+	}
+
 //	private static Tabs createMenuTabs() {
 //		final Tabs tabs = new Tabs();
+//
 //		tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
 //		tabs.add(getAvailableTabs());
 //		return tabs;
@@ -145,8 +54,14 @@ public class MainView extends AppLayout {
 //
 //	private static Tab[] getAvailableTabs() {
 //		final List<Tab> tabs = new ArrayList<>();
+//
+//		// tabs.add(createBlankTab());
+//
+////		tabs.add(createTab("Title Text", TextComponent.class));
+//
 //		tabs.add(createTab("Story", MainContent.class));
 //		tabs.add(createTab("MasterDetail", MasterDetailView.class));
+//
 //		return tabs.toArray(new Tab[tabs.size()]);
 //	}
 //
@@ -157,6 +72,16 @@ public class MainView extends AppLayout {
 //	private static Tab createTab(Component content) {
 //		final Tab tab = new Tab();
 //		tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
+//		// tab.addClassName("contents-display");
+//
+//		tab.getElement().addEventListener("scroll", new DomEventListener() {
+//
+//			@Override
+//			public void handleEvent(DomEvent event) {
+//				System.out.println("Scrolled Tab");
+//
+//			}
+//		});
 //		tab.add(content);
 //		return tab;
 //	}

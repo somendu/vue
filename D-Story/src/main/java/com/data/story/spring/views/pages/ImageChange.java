@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.data.story.spring.views.common.CustomGrid;
 import com.data.story.spring.views.common.CustomImage;
+import com.data.story.spring.views.common.CustomLegendComponent;
 import com.data.story.spring.views.common.DivExtended;
 import com.data.story.spring.views.common.PaperSlider;
 import com.data.story.spring.views.common.PaperSliderChangEvent;
@@ -31,8 +32,6 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -55,8 +54,8 @@ import com.vaadin.flow.shared.Registration;
 //@RouteAlias(value = "", layout = MainView.class)
 @PageTitle("Image Change")
 @Tag("image-change")
-@CssImport(value = "./styles/views/imagechange/image-change.css", include = "lumo-badge")
-@JsModule("@vaadin/vaadin-lumo-styles/badge.js")
+//@CssImport(value = "./styles/views/imagechange/image-change.css", include = "lumo-badge")
+//@JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class ImageChange extends Div {
 
 	CustomImage customImageTransfer = new CustomImage();
@@ -67,7 +66,7 @@ public class ImageChange extends Div {
 
 	Div resetButtonDiv = new Div();
 
-	List<CustomImage> imageList = new ArrayList<CustomImage>();
+	ArrayList<CustomImage> imageList = new ArrayList<CustomImage>();
 
 	CustomGrid grid = new CustomGrid();
 
@@ -103,7 +102,21 @@ public class ImageChange extends Div {
 
 	List<Integer> rowArray = new ArrayList<Integer>();
 
-	Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
+//	Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
+
+//	private TextComponent sliderText = new TextComponent();
+//	private TextComponent gridText = new TextComponent();
+
+	// Showing the legend
+	Div legendDiv = new Div();
+
+	CustomLegendComponent vaccinatedLegend = new CustomLegendComponent();
+	CustomLegendComponent susceptibleLegend = new CustomLegendComponent();
+	CustomLegendComponent infectedLegend = new CustomLegendComponent();
+	CustomLegendComponent yourKidSuscetibleLegend = new CustomLegendComponent();
+	CustomLegendComponent yourKidInfectedLegend = new CustomLegendComponent();
+
+	List<CustomLegendComponent> legendComponentList = new ArrayList<CustomLegendComponent>();
 
 	public ImageChange() {
 
@@ -149,7 +162,9 @@ public class ImageChange extends Div {
 		labelDiv.setId("label-div");
 		gridDiv.setId("grid-div");
 
-		sliderDiv.addClassName("wrapper");
+		legendDiv.setId("legend-div");
+
+//		sliderDiv.addClassName("wrapper");
 
 		// grid.getElement().getStyle().set("display", "contents");
 
@@ -161,10 +176,6 @@ public class ImageChange extends Div {
 		addComponentAtIndex(2, gridDiv);
 
 		// TODO Add second Label which changes according to the percentage
-
-		DomEventListener l = e -> System.out.println("invoked!");
-
-		gridDiv.getElement().addEventListener("scroll", l);
 
 		imageList.add(customImage);
 
@@ -187,8 +198,6 @@ public class ImageChange extends Div {
 		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
 				GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-//		gridDiv.getElement().getStyle().set("display", "block");
-
 		grid.setHeightByRows(true);
 
 		List<Column<CustomImage>> columnsList = grid.getColumns();
@@ -204,6 +213,7 @@ public class ImageChange extends Div {
 		sliderDiv.add(paperSlider);
 
 		valueLabel.setText(paperSlider.getInitValue());
+		valueLabel.addClassName("label-text");
 
 		labelDiv.add(valueLabel);
 
@@ -219,6 +229,25 @@ public class ImageChange extends Div {
 							customImageTen, customImageEleven);
 				}));
 
+		// Showing the grid for the legend
+
+		vaccinatedLegend.getLegendImage().setSrc("/images/vaccinated.png");
+		susceptibleLegend.getLegendImage().setSrc("/images/susceptible.png");
+		infectedLegend.getLegendImage().setSrc("/images/infected.png");
+		yourKidSuscetibleLegend.getLegendImage().setSrc("/images/susceptible-your-child.png");
+		yourKidInfectedLegend.getLegendImage().setSrc("/images/infected-your-child.png");
+
+		vaccinatedLegend.getTextComponent().setText(" Vaccinated");
+		susceptibleLegend.getTextComponent().setText(" Susceptible");
+		infectedLegend.getTextComponent().setText(" Infected");
+		yourKidSuscetibleLegend.getTextComponent().setText(" Your Kid Susceptible");
+		yourKidInfectedLegend.getTextComponent().setText(" Your Kid Infected");
+
+		legendDiv.add(vaccinatedLegend, susceptibleLegend, infectedLegend, yourKidSuscetibleLegend,
+				yourKidInfectedLegend);
+
+		addComponentAtIndex(3, legendDiv);
+
 	}
 
 	/**
@@ -231,6 +260,14 @@ public class ImageChange extends Div {
 	 * @param customImage
 	 */
 	private void changeSusceptibleImage(PaperSliderChangEvent sliderEvent, CustomImage... customImage) {
+
+//		sliderText.setComponentText("Text to change as per " + sliderEvent.getValue() + " percentage ");
+//		sliderDiv.add(sliderText);
+//
+//		gridText.setComponentText(
+//				"The Text below the grid to Change as per " + sliderEvent.getValue() + " percentage ");
+//
+//		addComponentAtIndex(3, gridText);
 
 		// TODO THis will be used once timer thing in place
 		sliderEvent.getSource().getElement().setAttribute("disabled", "true");
@@ -249,11 +286,13 @@ public class ImageChange extends Div {
 		Map<Integer, LinkedHashSet<Integer>> columnSet = getColumnMap(Integer.parseInt(sliderEvent.getValue()));
 
 		for (Integer key : columnSet.keySet()) {
+			// System.out.println("Key : " + key);
 			Map<Integer, Image> map = customImage[key].getImageMap();
 
 			LinkedHashSet<Integer> integerSet = columnSet.get(key);
 
 			for (Integer hashInt : integerSet) {
+				// System.out.println("hashInt : " + hashInt);
 				map.get(hashInt).setSrc("/images/susceptible.png");
 			}
 
@@ -287,31 +326,34 @@ public class ImageChange extends Div {
 
 		// Setting always the element from the second column
 
-		LinkedHashSet<Integer> integerSet = new LinkedHashSet<Integer>();
+		LinkedHashSet<Integer> positionKidSet = new LinkedHashSet<Integer>();
 
 		List<Integer> listInt = new ArrayList<Integer>();
 
-		int setCount = 0;
-		while (setCount < customPassedSet.size()) {
-			LinkedHashSet<Integer> innerSet = customPassedSet.get(setCount);
+		// TODO Take the integer set from customPassedSet
 
-			if (innerSet.isEmpty()) {
-				setCount++;
+		for (Integer key : customPassedSet.keySet()) {
+//			System.out.println("key at changeImageYourKid : " + key);
+
+			LinkedHashSet<Integer> innerSet = customPassedSet.get(key);
+
+			if (innerSet == null || innerSet.isEmpty()) {
+				// setCount++;
 				continue;
 
 			} else {
-				integerSet.addAll(innerSet);
-				integerSet.add(setCount);
+				positionKidSet.addAll(innerSet);
+				positionKidSet.add(key);
 				break;
 			}
 
 		}
 
-		for (Integer integer : integerSet) {
+		for (Integer integer : positionKidSet) {
 			listInt.add(integer);
 		}
 
-		int positionYourKid = integerSet.iterator().next();
+		int positionYourKid = positionKidSet.iterator().next();
 
 		int mapPosition = listInt.get(listInt.size() - 1);
 
@@ -362,7 +404,7 @@ public class ImageChange extends Div {
 			}
 		}
 
-		// Changing a random image for first sick
+		// TODO Changing a random image for first sick from the set only
 		customImage[valKey].getImageMap().get(valKey).setSrc("/images/infected.png");
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
@@ -372,107 +414,6 @@ public class ImageChange extends Div {
 
 			setSickImages(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
 		}));
-
-	}
-
-	/**
-	 * The map for images based on the slider value selection
-	 * 
-	 * @param sliderValue
-	 * @return
-	 */
-	private Map<Integer, LinkedHashSet<Integer>> getColumnMap(int sliderValue) {
-
-		int modulus = Math.round(sliderValue % 10);
-
-		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
-
-		int columnCount = nearestMultiple / 10;
-
-		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
-
-		// When Slider value less than 10 -> 1 image will be random selected from any
-		// column
-		if (columnCount == 0) {
-			while (columnList.size() < modulus) {
-
-				int columnValue = getRandomRow();
-				columnList.add(columnValue);
-			}
-
-			columnMap.put(columnCount, columnList);
-		}
-
-		// When Slider value More than 10 -> n images will be random selected from all
-		// columns
-		else {
-
-			while (columnList.size() < 10)
-
-			{
-				int columnValue = getRandomRow();
-				columnList.add(columnValue);
-			}
-
-			System.out.println("Column List : " + columnList);
-
-			// Creating the map for the first multiple of 10
-			for (Integer column : columnList) {
-				LinkedHashSet<Integer> imageList = getRandomList(columnCount);
-
-				columnMap.put(column, imageList);
-			}
-
-			// Create image list for remaining images - modulus
-			int imageCountToRemove = 10 - modulus;
-			for (int removeCounter = 0; removeCounter < imageCountToRemove; removeCounter++)
-
-			{
-
-				LinkedHashSet<Integer> imageListRemoved = new LinkedHashSet<Integer>();
-				imageListRemoved = removeImage(columnMap.get(removeCounter));
-
-				columnMap.put(removeCounter, imageListRemoved);
-
-			}
-
-		}
-
-		return columnMap;
-	}
-
-	/**
-	 * To remove the first element from the image list
-	 * 
-	 * @param imageList
-	 * @return
-	 */
-	private LinkedHashSet<Integer> removeImage(LinkedHashSet<Integer> imageList) {
-
-		imageList.remove(imageList.iterator().next());
-
-		return imageList;
-
-	}
-
-	/**
-	 * Based on column count it will return number 'random'
-	 * 
-	 * @param columnCount
-	 * @return
-	 */
-	public LinkedHashSet<Integer> getRandomList(int columnCount) {
-
-		LinkedHashSet<Integer> imageList = new LinkedHashSet<Integer>();
-
-		while (imageList.size() < columnCount)
-
-		{
-			int columnValue = getRandomRow();
-			imageList.add(columnValue);
-		}
-
-		return imageList;
 
 	}
 
@@ -517,7 +458,38 @@ public class ImageChange extends Div {
 			registrationHolder.set(null);
 
 			// TODO This will be effective only based on Formula
-			setInfectedChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
+
+			// TODO Take this on count else call setSusceptibleChild
+			if (Integer.parseInt(sliderEvent.getValue()) > 50) {
+				setInfectedChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
+			} else {
+				setSusceptibleChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
+			}
+		}));
+
+	}
+
+	/**
+	 * Method for keeping the child as susceptible only
+	 * 
+	 * @param sliderEvent
+	 * @param customPassedSet
+	 * @param customImage
+	 */
+	private void setSusceptibleChild(PaperSliderChangEvent sliderEvent,
+			Map<Integer, LinkedHashSet<Integer>> customPassedSet, Integer mapPosition, Integer positionYourKid,
+			CustomImage... customImage) {
+
+		customImage[mapPosition].getImageMap().get(positionYourKid).setSrc("/images/susceptible-your-child.png");
+
+		// Reset Everything on Click
+		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
+		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
+			registrationHolder.get().remove();
+			registrationHolder.set(null);
+
+			resetAll(sliderEvent, customPassedSet, customImage);
+
 		}));
 
 	}
@@ -558,12 +530,13 @@ public class ImageChange extends Div {
 			CustomImage... customImage) {
 
 		sliderEvent.getSource().getElement().removeAttribute("disabled");
+
 		for (CustomImage customImageSingle : customImage) {
 			customImageSingle.setVaccinatedImage();
 
 		}
 
-		valueLabel.setText(paperSlider.getInitValue());
+		// valueLabel.setText(paperSlider.getInitValue());
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder
@@ -589,5 +562,121 @@ public class ImageChange extends Div {
 		rowArray.add(randomRow);
 
 		return randomRow;
+	}
+
+	/**
+	 * The map for images based on the slider value selection
+	 * 
+	 * @param sliderValue
+	 * @return
+	 */
+	private Map<Integer, LinkedHashSet<Integer>> getColumnMap(int sliderValue) {
+
+		Map<Integer, LinkedHashSet<Integer>> columnSet = new HashMap<Integer, LinkedHashSet<Integer>>();
+
+		int modulus = Math.round(sliderValue % 10);
+
+		System.out.println("Modulus : " + modulus);
+
+		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
+
+		System.out.println("nearestMultiple : " + nearestMultiple);
+
+		int columnCount = nearestMultiple / 10;
+
+		System.out.println("columnCount : " + columnCount);
+
+		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
+
+		// When Slider value less than 10 -> 1 image will be random selected from any
+		// column
+		if (columnCount == 1) {
+			while (columnList.size() < modulus) {
+
+				int columnValue = getRandomRow();
+				columnList.add(columnValue);
+			}
+
+			System.out.println("Column List When column count 1 : " + columnList);
+
+			// Creating the map for the first multiple of 10
+			for (Integer column : columnList) {
+				LinkedHashSet<Integer> imageList = getRandomList(columnCount);
+
+				columnSet.put(column, imageList);
+			}
+		}
+
+		// When Slider value More than 10 -> n images will be random selected from all
+		// columns
+		else {
+
+			while (columnList.size() < 10)
+
+			{
+				int columnValue = getRandomRow();
+				columnList.add(columnValue);
+			}
+
+			System.out.println("Column List : " + columnList);
+
+			// Creating the map for the first multiple of 10
+			for (Integer column : columnList) {
+				LinkedHashSet<Integer> imageList = getRandomList(columnCount);
+
+				columnSet.put(column, imageList);
+			}
+
+			// Create image list for remaining images - modulus
+			int imageCountToRemove = 10 - modulus;
+			for (int removeCounter = 0; removeCounter < imageCountToRemove; removeCounter++)
+
+			{
+
+				LinkedHashSet<Integer> imageListRemoved = new LinkedHashSet<Integer>();
+				imageListRemoved = removeImage(columnSet.get(removeCounter));
+
+				columnSet.put(removeCounter, imageListRemoved);
+
+			}
+
+		}
+
+		return columnSet;
+	}
+
+	/**
+	 * To remove the first element from the image list
+	 * 
+	 * @param imageList
+	 * @return
+	 */
+	private LinkedHashSet<Integer> removeImage(LinkedHashSet<Integer> imageList) {
+
+		imageList.remove(imageList.iterator().next());
+
+		return imageList;
+
+	}
+
+	/**
+	 * Based on column count it will return number 'random'
+	 * 
+	 * @param columnCount
+	 * @return
+	 */
+	public LinkedHashSet<Integer> getRandomList(int columnCount) {
+
+		LinkedHashSet<Integer> imageList = new LinkedHashSet<Integer>();
+
+		while (imageList.size() < columnCount)
+
+		{
+			int columnValue = getRandomRow();
+			imageList.add(columnValue);
+		}
+
+		return imageList;
+
 	}
 }

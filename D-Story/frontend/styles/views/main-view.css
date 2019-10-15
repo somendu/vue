@@ -8,6 +8,31 @@
     padding: var(--lumo-space-m) var(--lumo-space-l);
 }
 
+#image-change {
+    background-color: var(--lumo-contrast-10pct);
+    box-sizing: border-box;
+    display: block;
+    font-size: var(--lumo-font-size-m);
+    height: 100%;
+    overflow: auto;
+    padding: var(--lumo-space-s);
+    /*text-align: center;*/
+}
+
+#slider-div {
+    display: flex;
+    width: 65%;
+}
+
+#label-div {
+    display: inline-flex;
+    width: 64%;
+}
+
+
+.contents-display {
+    display: contents;
+}
 
 .divClass {
     border: 1px solid black;
@@ -81,4 +106,23 @@ vaadin-board {
 
 .success-text {
     color: var(--lumo-success-text-color);
+}
+
+.label-text {
+    font-family: Lato;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.75;
+    margin: 0 0 1.75rem;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+
+}
+
+/* Grid */
+vaadin-grid {
+    height: 20%;
 }

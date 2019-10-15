@@ -1,2 +1,10 @@
 1. Scroll Event Capture
 2. Animate the image grid instead of click
+3. Slider Event once reset - need to reinitialize
+
+
+1. Add Legends down
+2. counters for count images
+3. Based on count, change the color
+4. Check the change to see the red color
+5. Infected should not happen in certain cases - check the count
