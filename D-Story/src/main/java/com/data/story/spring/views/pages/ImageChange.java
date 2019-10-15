@@ -283,7 +283,7 @@ public class ImageChange extends Div {
 
 		}
 
-		Map<Integer, LinkedHashSet<Integer>> columnSet = getColumnMap(Integer.parseInt(sliderEvent.getValue()));
+		Map<Integer, LinkedHashSet<Integer>> columnSet = getColumnMap(100 - Integer.parseInt(sliderEvent.getValue()));
 
 		for (Integer key : columnSet.keySet()) {
 			// System.out.println("Key : " + key);
@@ -430,19 +430,25 @@ public class ImageChange extends Div {
 			Integer mapPosition, Integer positionYourKid, CustomImage... customImage) {
 
 		for (Integer key : customPassedSet.keySet()) {
-
+			System.out.println("Key inside Sick Images : " + key);
 			Map<Integer, Image> map = customImage[key].getImageMap();
 
 			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
+
+			for (int setInt : integerSet) {
+				System.out.println("Integer Set here : " + setInt);
+			}
 
 			if (key == mapPosition) {
 				integerSet.remove(positionYourKid);
 			}
 
 			if (!(integerSet.isEmpty())) {
+				// System.out.println("To remove first : " + integerSet.iterator().next());
 				integerSet.remove(integerSet.iterator().next());
 			}
 			if (!(integerSet.isEmpty())) {
+				System.out.println("To remove second : " + integerSet.iterator().next());
 				integerSet.remove(integerSet.iterator().next());
 			}
 
@@ -460,7 +466,7 @@ public class ImageChange extends Div {
 			// TODO This will be effective only based on Formula
 
 			// TODO Take this on count else call setSusceptibleChild
-			if (Integer.parseInt(sliderEvent.getValue()) > 50) {
+			if (Integer.parseInt(sliderEvent.getValue()) < 50) {
 				setInfectedChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
 			} else {
 				setSusceptibleChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
@@ -524,15 +530,15 @@ public class ImageChange extends Div {
 	 * 
 	 * @param sliderEvent
 	 * @param customPassedSet
-	 * @param customImage
+	 * @param customImageArray
 	 */
 	private void resetAll(PaperSliderChangEvent sliderEvent, Map<Integer, LinkedHashSet<Integer>> customPassedSet,
-			CustomImage... customImage) {
+			CustomImage... customImageArray) {
 
 		sliderEvent.getSource().getElement().removeAttribute("disabled");
 
-		for (CustomImage customImageSingle : customImage) {
-			customImageSingle.setVaccinatedImage();
+		for (CustomImage customImage : customImageArray) {
+			customImage.setVaccinatedImage();
 
 		}
 
