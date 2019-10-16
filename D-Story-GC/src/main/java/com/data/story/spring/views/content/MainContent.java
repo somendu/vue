@@ -10,6 +10,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.IFrame;
 import com.vaadin.flow.dom.DomEvent;
 import com.vaadin.flow.dom.DomEventListener;
 import com.vaadin.flow.router.PageTitle;
@@ -31,6 +32,8 @@ public class MainContent extends Div {
 //	private TextComponent firstText = new TextComponent();
 
 	private ImageChange imageChange = new ImageChange();
+
+	private IFrame iframe = new IFrame();
 
 //	private TextComponent secondText = new TextComponent();
 
@@ -61,6 +64,11 @@ public class MainContent extends Div {
 
 //		DivComponent imageComponent = new DivComponent("test",
 //				new Component[] { firstText, imageChange, secondText, thirdText }, "test");
+
+		iframe.setSrc("https://story-13.appspot.com/");
+		iframe.setSizeFull();
+		iframe.setHeight("720px");
+		iframe.getElement().getStyle().set("border-style", "none");
 
 		DivComponent imageComponent = new DivComponent("test", new Component[] { imageChange }, "test");
 

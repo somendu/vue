@@ -55,7 +55,7 @@ public class CustomLegendComponent extends Div {
 		image.setWidth("29px");
 		image.setHeight("39px");
 
-		image.getElement().getStyle().set("padding", "1.5%");
+		image.getElement().getStyle().set("padding", "1%");
 
 	}
 

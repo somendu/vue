@@ -16,7 +16,6 @@
 package com.data.story.spring.views.common;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Paragraph;
 
 /**
@@ -33,23 +32,16 @@ import com.vaadin.flow.component.html.Paragraph;
 
 public class TextComponent extends Paragraph {
 
-	private Label textLabel = new Label();
-
 	public TextComponent() {
 
 		setId("text-component");
-		initWidget();
+		addClassName("label-text");
 
-	}
-
-	private void initWidget() {
-
-		add(textLabel);
 	}
 
 	public void setComponentText(String string) {
 		setText(string);
-		addClassName("label-text");
+
 	}
 
 }
