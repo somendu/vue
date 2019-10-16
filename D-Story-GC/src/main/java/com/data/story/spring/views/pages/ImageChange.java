@@ -430,13 +430,13 @@ public class ImageChange extends Div {
 			Integer mapPosition, Integer positionYourKid, CustomImage... customImage) {
 
 		for (Integer key : customPassedSet.keySet()) {
-			System.out.println("Key inside Sick Images : " + key);
+			// System.out.println("Key inside Sick Images : " + key);
 			Map<Integer, Image> map = customImage[key].getImageMap();
 
 			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
 
 			for (int setInt : integerSet) {
-				System.out.println("Integer Set here : " + setInt);
+				// System.out.println("Integer Set here : " + setInt);
 			}
 
 			if (key == mapPosition) {
@@ -448,7 +448,7 @@ public class ImageChange extends Div {
 				integerSet.remove(integerSet.iterator().next());
 			}
 			if (!(integerSet.isEmpty())) {
-				System.out.println("To remove second : " + integerSet.iterator().next());
+				// System.out.println("To remove second : " + integerSet.iterator().next());
 				integerSet.remove(integerSet.iterator().next());
 			}
 
@@ -582,15 +582,15 @@ public class ImageChange extends Div {
 
 		int modulus = Math.round(sliderValue % 10);
 
-		System.out.println("Modulus : " + modulus);
+		// System.out.println("Modulus : " + modulus);
 
 		int nearestMultiple = 10 * (Math.round(sliderValue / 10)) + 10;
 
-		System.out.println("nearestMultiple : " + nearestMultiple);
+		// System.out.println("nearestMultiple : " + nearestMultiple);
 
 		int columnCount = nearestMultiple / 10;
 
-		System.out.println("columnCount : " + columnCount);
+		// System.out.println("columnCount : " + columnCount);
 
 		LinkedHashSet<Integer> columnList = new LinkedHashSet<Integer>();
 
@@ -603,7 +603,7 @@ public class ImageChange extends Div {
 				columnList.add(columnValue);
 			}
 
-			System.out.println("Column List When column count 1 : " + columnList);
+			// System.out.println("Column List When column count 1 : " + columnList);
 
 			// Creating the map for the first multiple of 10
 			for (Integer column : columnList) {
@@ -624,7 +624,7 @@ public class ImageChange extends Div {
 				columnList.add(columnValue);
 			}
 
-			System.out.println("Column List : " + columnList);
+			// System.out.println("Column List : " + columnList);
 
 			// Creating the map for the first multiple of 10
 			for (Integer column : columnList) {
