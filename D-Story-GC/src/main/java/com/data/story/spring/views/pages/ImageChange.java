@@ -162,6 +162,8 @@ public class ImageChange extends Div {
 		labelDiv.setId("label-div");
 		gridDiv.setId("grid-div");
 
+		gridDiv.getElement().getStyle().set("overflow-x", "hidden");
+
 		legendDiv.setId("legend-div");
 
 //		sliderDiv.addClassName("wrapper");
