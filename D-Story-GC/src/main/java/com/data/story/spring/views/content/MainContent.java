@@ -6,6 +6,7 @@ package com.data.story.spring.views.content;
 import com.data.story.spring.MainView;
 import com.data.story.spring.views.common.DivComponent;
 import com.data.story.spring.views.pages.ImageChange;
+import com.data.story.spring.views.pages.ImageChangeTest;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.board.Board;
@@ -32,6 +33,8 @@ public class MainContent extends Div {
 //	private TextComponent firstText = new TextComponent();
 
 	private ImageChange imageChange = new ImageChange();
+
+	private ImageChangeTest imageChangeTest = new ImageChangeTest();
 
 	private IFrame imageFrame = new IFrame();
 
