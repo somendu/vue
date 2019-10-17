@@ -10,9 +10,9 @@ import com.vaadin.flow.component.grid.Grid;
  *
  */
 
-public class CustomGrid extends Grid<CustomImage> {
+public class CustomImageGrid extends Grid<CustomImage> {
 
-	public CustomGrid() {
+	public CustomImageGrid() {
 
 		setId("image-grid");
 		setThemeName("image-compact");

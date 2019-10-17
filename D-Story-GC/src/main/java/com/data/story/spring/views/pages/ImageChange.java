@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.data.story.spring.views.common.CustomGrid;
 import com.data.story.spring.views.common.CustomImage;
+import com.data.story.spring.views.common.CustomImageGrid;
 import com.data.story.spring.views.common.CustomLegendComponent;
 import com.data.story.spring.views.common.PaperSlider;
 import com.data.story.spring.views.common.PaperSliderChangEvent;
@@ -61,7 +61,7 @@ public class ImageChange extends Div {
 
 	private ArrayList<CustomImage> imageList = new ArrayList<CustomImage>();
 
-	private CustomGrid grid = new CustomGrid();
+	private CustomImageGrid grid = new CustomImageGrid();
 
 	private CustomImage customImage = new CustomImage();
 	private CustomImage customImageTwo = new CustomImage();
