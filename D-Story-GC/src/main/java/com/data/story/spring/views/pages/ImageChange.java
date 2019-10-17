@@ -25,7 +25,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.data.story.spring.views.common.CustomGrid;
 import com.data.story.spring.views.common.CustomImage;
 import com.data.story.spring.views.common.CustomLegendComponent;
-import com.data.story.spring.views.common.DivExtended;
 import com.data.story.spring.views.common.PaperSlider;
 import com.data.story.spring.views.common.PaperSliderChangEvent;
 import com.vaadin.flow.component.ClickEvent;
@@ -54,77 +53,49 @@ import com.vaadin.flow.shared.Registration;
 //@RouteAlias(value = "", layout = MainView.class)
 @PageTitle("Image Change")
 @Tag("image-change")
-//@CssImport(value = "./styles/views/imagechange/image-change.css", include = "lumo-badge")
-//@JsModule("@vaadin/vaadin-lumo-styles/badge.js")
 public class ImageChange extends Div {
 
-	CustomImage customImageTransfer = new CustomImage();
+	private Div gridDiv = new Div();
+	private Div sliderDiv = new Div();
+	private Div labelDiv = new Div();
 
-	DivExtended gridDiv = new DivExtended();
-	Div sliderDiv = new Div();
-	Div labelDiv = new Div();
+	private ArrayList<CustomImage> imageList = new ArrayList<CustomImage>();
 
-	Div resetButtonDiv = new Div();
+	private CustomGrid grid = new CustomGrid();
 
-	ArrayList<CustomImage> imageList = new ArrayList<CustomImage>();
+	private CustomImage customImage = new CustomImage();
+	private CustomImage customImageTwo = new CustomImage();
+	private CustomImage customImageThree = new CustomImage();
+	private CustomImage customImageFour = new CustomImage();
+	private CustomImage customImageFive = new CustomImage();
+	private CustomImage customImageSix = new CustomImage();
+	private CustomImage customImageSeven = new CustomImage();
+	private CustomImage customImageEight = new CustomImage();
+	private CustomImage customImageNine = new CustomImage();
+	private CustomImage customImageTen = new CustomImage();
+	private CustomImage customImageEleven = new CustomImage();
 
-	CustomGrid grid = new CustomGrid();
+	private PaperSlider paperSlider = new PaperSlider("0", "100", "0");
 
-	CustomImage customImage = new CustomImage();
-	CustomImage customImageTwo = new CustomImage();
-	CustomImage customImageThree = new CustomImage();
-	CustomImage customImageFour = new CustomImage();
-	CustomImage customImageFive = new CustomImage();
-	CustomImage customImageSix = new CustomImage();
-	CustomImage customImageSeven = new CustomImage();
-	CustomImage customImageEight = new CustomImage();
-	CustomImage customImageNine = new CustomImage();
-	CustomImage customImageTen = new CustomImage();
-	CustomImage customImageEleven = new CustomImage();
-	CustomImage customImageTwelve = new CustomImage();
-	CustomImage customImageThirteen = new CustomImage();
-	CustomImage customImageFourteen = new CustomImage();
-	CustomImage customImageFifteen = new CustomImage();
-	CustomImage customImageSixteen = new CustomImage();
-	CustomImage customImageSeventeen = new CustomImage();
-	CustomImage customImageEighteen = new CustomImage();
+	private Label valueLabel = new Label("");
 
-	PaperSlider paperSlider = new PaperSlider("0", "100", "0");
+	private Button startButton = new Button("Start");
 
-	Label valueLabel = new Label("");
-
-	Button startButton = new Button("Start");
-
-	Button resetButton = new Button("Start Over");
-
-	Registration gridFirstCLick;
-	Registration gridSecondCLick;
-
-	List<Integer> rowArray = new ArrayList<Integer>();
-
-//	Map<Integer, LinkedHashSet<Integer>> columnMap = new HashMap<Integer, LinkedHashSet<Integer>>();
-
-//	private TextComponent sliderText = new TextComponent();
-//	private TextComponent gridText = new TextComponent();
+	private List<Integer> rowArray = new ArrayList<Integer>();
 
 	// Showing the legend
-	Div legendDiv = new Div();
+	private Div legendDiv = new Div();
 
-	CustomLegendComponent vaccinatedLegend = new CustomLegendComponent();
-	CustomLegendComponent susceptibleLegend = new CustomLegendComponent();
-	CustomLegendComponent infectedLegend = new CustomLegendComponent();
-	CustomLegendComponent yourKidSuscetibleLegend = new CustomLegendComponent();
-	CustomLegendComponent yourKidInfectedLegend = new CustomLegendComponent();
-
-	List<CustomLegendComponent> legendComponentList = new ArrayList<CustomLegendComponent>();
+	private CustomLegendComponent vaccinatedLegend = new CustomLegendComponent();
+	private CustomLegendComponent susceptibleLegend = new CustomLegendComponent();
+	private CustomLegendComponent infectedLegend = new CustomLegendComponent();
+	private CustomLegendComponent yourKidSuscetibleLegend = new CustomLegendComponent();
+	private CustomLegendComponent yourKidInfectedLegend = new CustomLegendComponent();
 
 	public ImageChange() {
 
 		setId("image-change");
-		initWidget();
-
-//		setAlignItems(Alignment.CENTER);
-		// setWidth("70%");
+		initImageGrid();
 
 		getElement().addEventListener("scroll", new DomEventListener() {
 
@@ -145,30 +116,18 @@ public class ImageChange extends Div {
 
 			}
 		});
-//		getElement().addEventListener("mouseleave", new DomEventListener() {
-//
-//			@Override
-//			public void handleEvent(DomEvent event) {
-//
-//				// System.out.println("Moouse Leaved");
-//
-//			}
-//		});
+
 	}
 
-	private void initWidget() {
+	/**
+	 * Initializing the image grid component
+	 */
+	private void initImageGrid() {
 
 		sliderDiv.setId("slider-div");
 		labelDiv.setId("label-div");
 		gridDiv.setId("grid-div");
-
-		gridDiv.getElement().getStyle().set("overflow-x", "hidden");
-
 		legendDiv.setId("legend-div");
-
-//		sliderDiv.addClassName("wrapper");
-
-		// grid.getElement().getStyle().set("display", "contents");
 
 		addComponentAtIndex(0, sliderDiv);
 		addComponentAtIndex(1, labelDiv);

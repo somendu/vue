@@ -1,10 +1,12 @@
 package com.data.story.spring;
 
+import com.data.story.spring.views.common.TextComponent;
 import com.data.story.spring.views.pages.ImageChange;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -22,26 +24,23 @@ public class MainView extends AppLayout {
 
 //	private final Tabs menu;
 //
-//	private TextComponent titleText = new TextComponent();
+	private TextComponent titleText = new TextComponent();
 
 	private ImageChange imageChange = new ImageChange();
 
 	public MainView() {
 
 //		UI.getCurrent().getPage().setTitle("Title Here");
-//		Image img = new Image("https://i.imgur.com/GPpnszs.png", "Vaadin Logo");
-//		img.setHeight("44px");
-//		titleText.setComponentText("Title Text");
-//		titleText.getElement().getStyle().set("padding-left", "1.5%");
-//		addToNavbar(titleText);
+		Image img = new Image("https://i.imgur.com/GPpnszs.png", "Vaadin Logo");
+		img.setHeight("44px");
+		titleText.setComponentText("Title Text");
+		titleText.getElement().getStyle().set("padding-left", "1.5%");
+		// addToNavbar(img);
 
 //		menu = createMenuTabs();
 //		addToNavbar(menu);
 
-		// UI.getCurrent().getPage().executeJs("window.addEventListener('scroll',
-		// function(){ console.error('oooo');});", "$0");
-
-		setContent(imageChange);
+		// setContent(img);
 	}
 
 //	private static Tabs createMenuTabs() {

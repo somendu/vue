@@ -33,7 +33,7 @@ public class MainContent extends Div {
 
 	private ImageChange imageChange = new ImageChange();
 
-	private IFrame iframe = new IFrame();
+	private IFrame imageFrame = new IFrame();
 
 //	private TextComponent secondText = new TextComponent();
 
@@ -65,17 +65,12 @@ public class MainContent extends Div {
 //		DivComponent imageComponent = new DivComponent("test",
 //				new Component[] { firstText, imageChange, secondText, thirdText }, "test");
 
-		iframe.setSrc("https://story-13.appspot.com/");
-		iframe.setSizeFull();
-		iframe.setHeight("720px");
-		iframe.getElement().getStyle().set("border-style", "none");
+		imageFrame.setSrc("https://story-13.appspot.com/");
+		imageFrame.setSizeFull();
+		imageFrame.setHeight("720px");
+		imageFrame.getElement().getStyle().set("border-style", "none");
 
-		DivComponent imageComponent = new DivComponent("test", new Component[] { imageChange }, "test");
-
-//		UI.getCurrent().getPage().executeJS("window.addEventListener('scroll', function(){ console.error('oooo');});");
-
-//		imageComponent.getElement().executeJs("window.addEventListener('scroll', function(){ console.error('oooo');});",
-//				"");
+		DivComponent imageComponent = new DivComponent("outerDiv", new Component[] { imageChange }, "innerDiv");
 
 		board.add(imageComponent);
 

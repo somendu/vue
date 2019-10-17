@@ -22,6 +22,7 @@
 #slider-div {
     display: flex;
     width: 65%;
+    padding-top: 3%;
 }
 
 #label-div {
@@ -42,8 +43,8 @@
 }
 
 
-.divPosition526 {
-  position: absolute; z-index: 0; left: 526px; top: 129.2px; opacity: 1;
+.outerDiv {
+  padding-top: 1%;
 }
 
 .divPosition762 {
