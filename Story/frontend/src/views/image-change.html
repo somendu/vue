@@ -20,16 +20,16 @@
 
     <search-bar id="search" show-checkbox></search-bar>
 
-    <vaadin-grid id="image-grid" theme="orders no-row-borders"></vaadin-grid>
+    <vaadin-grid id="image-grid" theme="orders no-row-borders image-compact crud"></vaadin-grid>
 
     <vaadin-dialog id="dialog" on-opened-changed="_onDialogOpen"></vaadin-dialog>
 
   </template>
 
-  <!-- <script>
+  <script>
     class ImageChange extends Polymer.Element {
       static get is() {
-        return 'storefront-view';
+        return 'image-change';
       }
 
       ready() {
@@ -60,6 +60,6 @@
       }
     }
 
-    window.customElements.define(StorefrontView.is, StorefrontView);
-  </script> -->
+    window.customElements.define(ImageChange.is, ImageChange);
+  </script> 
 </dom-module>

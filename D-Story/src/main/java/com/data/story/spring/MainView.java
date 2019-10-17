@@ -1,11 +1,10 @@
 package com.data.story.spring;
 
+import com.data.story.spring.views.pages.ImageChange;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.page.Push;
-import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -14,30 +13,40 @@ import com.vaadin.flow.theme.lumo.Lumo;
  * The main view is a top-level placeholder for other views.
  */
 
-//@Route
+@Tag("main-view")
+@CssImport(value = "./styles/views/main-view.css", include = "lumo-badge")
 @JsModule("./styles/shared-styles.js")
 @PWA(name = "Story", shortName = "Story")
-@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
-@Push
 public class MainView extends AppLayout {
 
 //	private final Tabs menu;
+//
+//	private TextComponent titleText = new TextComponent();
+
+	private ImageChange imageChange = new ImageChange();
 
 	public MainView() {
+
+//		UI.getCurrent().getPage().setTitle("Title Here");
+//		Image img = new Image("https://i.imgur.com/GPpnszs.png", "Vaadin Logo");
+//		img.setHeight("44px");
+//		titleText.setComponentText("Title Text");
+//		titleText.getElement().getStyle().set("padding-left", "1.5%");
+//		addToNavbar(titleText);
+
 //		menu = createMenuTabs();
 //		addToNavbar(menu);
 
-		Div div = new Div();
+		// UI.getCurrent().getPage().executeJs("window.addEventListener('scroll',
+		// function(){ console.error('oooo');});", "$0");
 
-		Label label = new Label("Here it is");
-
-		div.add(label);
-
+		setContent(imageChange);
 	}
 
 //	private static Tabs createMenuTabs() {
 //		final Tabs tabs = new Tabs();
+//
 //		tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
 //		tabs.add(getAvailableTabs());
 //		return tabs;
@@ -45,8 +54,14 @@ public class MainView extends AppLayout {
 //
 //	private static Tab[] getAvailableTabs() {
 //		final List<Tab> tabs = new ArrayList<>();
-////        tabs.add(createTab("Dashboard", DashboardView.class));
-////        tabs.add(createTab("MasterDetail", MasterDetailView.class));
+//
+//		// tabs.add(createBlankTab());
+//
+////		tabs.add(createTab("Title Text", TextComponent.class));
+//
+//		tabs.add(createTab("Story", MainContent.class));
+//		tabs.add(createTab("MasterDetail", MasterDetailView.class));
+//
 //		return tabs.toArray(new Tab[tabs.size()]);
 //	}
 //
@@ -57,6 +72,16 @@ public class MainView extends AppLayout {
 //	private static Tab createTab(Component content) {
 //		final Tab tab = new Tab();
 //		tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
+//		// tab.addClassName("contents-display");
+//
+//		tab.getElement().addEventListener("scroll", new DomEventListener() {
+//
+//			@Override
+//			public void handleEvent(DomEvent event) {
+//				System.out.println("Scrolled Tab");
+//
+//			}
+//		});
 //		tab.add(content);
 //		return tab;
 //	}
@@ -66,11 +91,11 @@ public class MainView extends AppLayout {
 //		return a;
 //	}
 //
-	@Override
-	protected void afterNavigation() {
-		super.afterNavigation();
-
-	}
+//	@Override
+//	protected void afterNavigation() {
+//		super.afterNavigation();
+//		selectTab();
+//	}
 //
 //	private void selectTab() {
 //		String target = RouteConfiguration.forSessionScope().getUrl(getContent().getClass());

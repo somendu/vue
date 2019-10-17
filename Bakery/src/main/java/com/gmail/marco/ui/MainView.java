@@ -20,10 +20,18 @@ import static com.gmail.marco.ui.utils.BakeryConst.VIEWPORT;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gmail.marco.app.security.SecurityUtils;
+import com.gmail.marco.ui.components.AppNavigation;
+import com.gmail.marco.ui.components.BakeryCookieConsent;
+import com.gmail.marco.ui.entities.PageInfo;
+import com.gmail.marco.ui.exceptions.AccessDeniedException;
+import com.gmail.marco.ui.views.HasConfirmation;
+import com.gmail.marco.ui.views.admin.products.ProductsView;
+import com.gmail.marco.ui.views.admin.users.UsersView;
+import com.gmail.marco.ui.views.login.LoginView;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
@@ -36,27 +44,13 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.gmail.marco.app.security.SecurityUtils;
-import com.gmail.marco.ui.components.AppNavigation;
-import com.gmail.marco.ui.components.BakeryCookieConsent;
-import com.gmail.marco.ui.entities.PageInfo;
-import com.gmail.marco.ui.exceptions.AccessDeniedException;
-import com.gmail.marco.ui.views.HasConfirmation;
-import com.gmail.marco.ui.views.admin.products.ProductsView;
-import com.gmail.marco.ui.views.admin.users.UsersView;
-import com.gmail.marco.ui.views.dashboard.DashboardView;
-import com.gmail.marco.ui.views.login.LoginView;
-import com.gmail.marco.ui.views.storefront.StorefrontView;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Tag("main-view")
 @HtmlImport("src/main-view.html")
 
 @PageTitle("My Starter Project")
 @Viewport(VIEWPORT)
-public class MainView extends PolymerTemplate<TemplateModel>
-		implements RouterLayout, BeforeEnterObserver {
+public class MainView extends PolymerTemplate<TemplateModel> implements RouterLayout, BeforeEnterObserver {
 
 	@Id("appNavigation")
 	private AppNavigation appNavigation;
@@ -72,16 +66,13 @@ public class MainView extends PolymerTemplate<TemplateModel>
 
 		List<PageInfo> pages = new ArrayList<>();
 		if (SecurityUtils.isUserLoggedIn()) {
-			pages.add(new PageInfo(PAGE_STOREFRONT, ICON_STOREFRONT,
-				TITLE_STOREFRONT));
-			pages.add(
-				new PageInfo(PAGE_DASHBOARD, ICON_DASHBOARD, TITLE_DASHBOARD));
+			pages.add(new PageInfo(PAGE_STOREFRONT, ICON_STOREFRONT, TITLE_STOREFRONT));
+			pages.add(new PageInfo(PAGE_DASHBOARD, ICON_DASHBOARD, TITLE_DASHBOARD));
 			if (SecurityUtils.isAccessGranted(UsersView.class)) {
 				pages.add(new PageInfo(PAGE_USERS, ICON_USERS, TITLE_USERS));
 			}
 			if (SecurityUtils.isAccessGranted(ProductsView.class)) {
-				pages.add(
-					new PageInfo(PAGE_PRODUCTS, ICON_PRODUCTS, TITLE_PRODUCTS));
+				pages.add(new PageInfo(PAGE_PRODUCTS, ICON_PRODUCTS, TITLE_PRODUCTS));
 			}
 			pages.add(new PageInfo(PAGE_LOGOUT, ICON_LOGOUT, TITLE_LOGOUT));
 		}
@@ -93,13 +84,11 @@ public class MainView extends PolymerTemplate<TemplateModel>
 
 	@Override
 	public void beforeEnter(BeforeEnterEvent event) {
-		final boolean accessGranted =
-			SecurityUtils.isAccessGranted(event.getNavigationTarget());
+		final boolean accessGranted = SecurityUtils.isAccessGranted(event.getNavigationTarget());
 		if (!accessGranted) {
 			if (SecurityUtils.isUserLoggedIn()) {
 				event.rerouteToError(AccessDeniedException.class);
-			}
-			else {
+			} else {
 				event.rerouteTo(LoginView.class);
 			}
 		}
