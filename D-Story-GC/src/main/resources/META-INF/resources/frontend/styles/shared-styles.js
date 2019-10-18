@@ -122,7 +122,7 @@ html {
 
       @media (max-width: 600px) {
         :host([theme~="orders"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-          padding: 0 !important;
+          padding: 0;
         }
       }
 
@@ -131,7 +131,7 @@ html {
       }
 
       :host([theme~="image-compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-		    padding: var(--lumo-space-xs);
+		    padding: var(--lumo-space-xs) !important;
       }
 
       :host([theme~="crud"]) {

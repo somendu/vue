@@ -131,7 +131,8 @@ html {
       }
 
       :host([theme~="image-compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-		    padding: var(--lumo-space-xs);
+        padding: var(--lumo-space-xs) !important;
+        -webkit-padding: var(--lumo-space-xs);
       }
 
       :host([theme~="crud"]) {
