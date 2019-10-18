@@ -25,15 +25,13 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.data.story.spring.views.common.CustomImage;
 import com.data.story.spring.views.common.CustomImageGrid;
 import com.data.story.spring.views.common.CustomLegendComponent;
+import com.data.story.spring.views.common.CustomLegendGrid;
 import com.data.story.spring.views.common.PaperSlider;
 import com.data.story.spring.views.common.PaperSliderChangEvent;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.Grid.Column;
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -86,26 +84,32 @@ public class ImageChange extends Div {
 	// Showing the legend
 	private Div legendDiv = new Div();
 
-	private CustomLegendComponent vaccinatedLegend = new CustomLegendComponent();
-	private CustomLegendComponent susceptibleLegend = new CustomLegendComponent();
-	private CustomLegendComponent infectedLegend = new CustomLegendComponent();
-	private CustomLegendComponent yourKidSuscetibleLegend = new CustomLegendComponent();
-	private CustomLegendComponent yourKidInfectedLegend = new CustomLegendComponent();
+	CustomLegendGrid customLegendGrid = new CustomLegendGrid();
+
+	List<CustomLegendComponent> imageLegendList = new ArrayList<CustomLegendComponent>();
+
+	CustomLegendComponent vaccinatedLegend = new CustomLegendComponent("/images/vaccinated.png", " Vaccinated");
+	CustomLegendComponent susceptibleLegend = new CustomLegendComponent("/images/susceptible.png", " Susceptible");
+	CustomLegendComponent infectedLegend = new CustomLegendComponent("/images/infected.png", " Infected");
+	CustomLegendComponent yourKidSuscetibleLegend = new CustomLegendComponent("/images/susceptible-your-child.png",
+			" Your Kid Susceptible");
+	CustomLegendComponent yourKidInfectedLegend = new CustomLegendComponent("/images/infected-your-child.png",
+			" Your Kid Infected");
 
 	public ImageChange() {
 
 		setId("image-change");
 		initImageGrid();
 
-		getElement().addEventListener("scroll", new DomEventListener() {
-
-			@Override
-			public void handleEvent(DomEvent event) {
-
-				System.out.println("Scroll Check");
-
-			}
-		});
+//		getElement().addEventListener("scroll", new DomEventListener() {
+//
+//			@Override
+//			public void handleEvent(DomEvent event) {
+//
+//				System.out.println("Scroll Check");
+//
+//			}
+//		});
 
 		gridDiv.getElement().addEventListener("scroll", new DomEventListener() {
 
@@ -128,6 +132,10 @@ public class ImageChange extends Div {
 		labelDiv.setId("label-div");
 		gridDiv.setId("grid-div");
 		legendDiv.setId("legend-div");
+
+		labelDiv.addClassName("align-padding");
+		gridDiv.addClassName("align-padding");
+		legendDiv.addClassName("align-padding");
 
 		addComponentAtIndex(0, sliderDiv);
 		addComponentAtIndex(1, labelDiv);
@@ -154,22 +162,6 @@ public class ImageChange extends Div {
 		grid.addComponentColumn(i -> customImageEleven.getVerticalInitialLayout());
 
 		gridDiv.add(grid);
-		grid.setSelectionMode(Grid.SelectionMode.NONE);
-
-		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.MATERIAL_COLUMN_DIVIDERS,
-				GridVariant.LUMO_WRAP_CELL_CONTENT);
-
-		grid.setHeightByRows(true);
-
-		List<Column<CustomImage>> columnsList = grid.getColumns();
-
-		for (Column<CustomImage> columnImage : columnsList) {
-			columnImage.setFlexGrow(0);
-
-			// TODO This is to get the key name
-			// columnImage.setKey("Key Setting");
-
-		}
 
 		sliderDiv.add(paperSlider);
 
@@ -192,6 +184,16 @@ public class ImageChange extends Div {
 
 		// Showing the grid for the legend
 
+		addComponentAtIndex(3, legendDiv);
+
+		imageLegendList.add(vaccinatedLegend);
+		imageLegendList.add(susceptibleLegend);
+		imageLegendList.add(yourKidSuscetibleLegend);
+		imageLegendList.add(infectedLegend);
+		imageLegendList.add(yourKidInfectedLegend);
+
+		customLegendGrid.setItems(imageLegendList);
+
 		vaccinatedLegend.getLegendImage().setSrc("/images/vaccinated.png");
 		susceptibleLegend.getLegendImage().setSrc("/images/susceptible.png");
 		infectedLegend.getLegendImage().setSrc("/images/infected.png");
@@ -204,10 +206,9 @@ public class ImageChange extends Div {
 		yourKidSuscetibleLegend.getTextComponent().setText(" Your Kid Susceptible");
 		yourKidInfectedLegend.getTextComponent().setText(" Your Kid Infected");
 
-		legendDiv.add(vaccinatedLegend, susceptibleLegend, infectedLegend, yourKidSuscetibleLegend,
-				yourKidInfectedLegend);
+		customLegendGrid.addComponentColumn(CustomLegendComponent::getHorizontalLayout);
 
-		addComponentAtIndex(3, legendDiv);
+		legendDiv.add(customLegendGrid);
 
 	}
 

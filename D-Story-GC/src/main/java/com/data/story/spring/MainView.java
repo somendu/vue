@@ -7,6 +7,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -20,6 +21,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @JsModule("./styles/shared-styles.js")
 @PWA(name = "Story", shortName = "Story")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
+@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainView extends AppLayout {
 
 //	private final Tabs menu;

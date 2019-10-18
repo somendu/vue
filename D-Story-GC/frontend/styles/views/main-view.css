@@ -8,6 +8,15 @@
     padding: var(--lumo-space-m) var(--lumo-space-l);
 }
 
+#main-content {
+    box-sizing: border-box;
+    display: block;
+    font-size: var(--lumo-font-size-m);
+    height: 100%;
+    overflow: auto;
+    padding: var(--lumo-space-m) var(--lumo-space-l);
+}
+
 #image-change {
     background-color: var(--lumo-contrast-10pct);
     box-sizing: border-box;
@@ -16,6 +25,7 @@
     height: 100%;
     overflow: auto;
     padding: var(--lumo-space-s);
+    padding-bottom: 15px;
     /*text-align: center;*/
 }
 
@@ -113,14 +123,44 @@ vaadin-board {
     font-family: Lato;
     font-size: 1rem;
     font-weight: normal;
-    line-height: 1.75;
     margin: 0 0 1.75rem;
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+}
 
+.legend-text {
+    font-family: Lato;
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0 0 1.75rem;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-left: 10px;
+}
+
+.legend-layout{
+    display: flex;
+    padding-left: 80%;
+    align-items: center;
+}
+
+.legend-image{
+    padding-right: 5%;
+}
+
+.align-padding {
+    padding-left: 8px;
+    padding-right: 7px;
+}
+
+.margin-top-15{
+    margin-top: 15px;
 }
 
 /* Grid */

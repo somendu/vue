@@ -6,7 +6,6 @@ package com.data.story.spring.views.common;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 import lombok.Data;
@@ -77,7 +76,7 @@ public class CustomLegendComponent extends Div {
 		image.setWidth("29px");
 		image.setHeight("39px");
 
-		image.getElement().getStyle().set("padding", "1%");
+		image.addClassName("legend-image");
 
 	}
 
@@ -87,8 +86,6 @@ public class CustomLegendComponent extends Div {
 	 * @return
 	 */
 	public HorizontalLayout getHorizontalLayout(String imageSrc, String text) {
-
-		System.out.println("Source " + imageSrc + " Text " + text);
 
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 
@@ -105,9 +102,6 @@ public class CustomLegendComponent extends Div {
 
 		horizontalLayout.add(textComponent);
 
-		horizontalLayout.getElement().getStyle().set("display", "flex");
-
-		horizontalLayout.setAlignItems(Alignment.CENTER);
 		return horizontalLayout;
 	}
 
@@ -124,9 +118,8 @@ public class CustomLegendComponent extends Div {
 
 		horizontalLayout.add(textComponent);
 
-		horizontalLayout.getElement().getStyle().set("display", "flex");
+		horizontalLayout.addClassName("legend-layout");
 
-		horizontalLayout.setAlignItems(Alignment.CENTER);
 		return horizontalLayout;
 	}
 
