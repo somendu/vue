@@ -4,6 +4,7 @@ runtime_config:
   jdk: openjdk8
 env_variables:
   SPRING_PROFILES_ACTIVE: "gcp,mysql"
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAM=256m -XX:ActiveProcessorCount=2 -Xmx32m"
 handlers:
 - url: /.*
   script: this field is required, but ignored
