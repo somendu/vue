@@ -356,18 +356,32 @@ public class ImageChange extends Div {
 
 			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
 
+			// TODO Check this code
+//			if (!(integerSet.isEmpty()) && key <= 5) {
+//				// System.out.println("To remove first : " + integerSet.iterator().next());
+//				integerSet.remove(integerSet.iterator().next());
+//			}
+
 			if (key == mapPosition || key == keyValue) {
 				integerSet.remove(positionYourKid);
 				continue;
 			} else {
-				valKey = keyValue;
+				valKey = key;
+				keyValue = integerSet.iterator().next();
+
+				System.out.println("valKey : " + valKey);
+				System.out.println("keyValue : " + keyValue);
+
 				break;
 
 			}
+
 		}
 
+		System.out.println("Set here : " + customPassedSet);
+
 		// TODO Changing a random image for first sick from the set only
-		customImage[valKey].getImageMap().get(valKey).setSrc("/images/infected.png");
+		customImage[valKey].getImageMap().get(keyValue).setSrc("/images/infected.png");
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
 		registrationHolder.set(gridDiv.addClickListener((ComponentEventListener<ClickEvent<Div>>) event -> {
@@ -391,6 +405,8 @@ public class ImageChange extends Div {
 	private void setSickImages(PaperSliderChangEvent sliderEvent, Map<Integer, LinkedHashSet<Integer>> customPassedSet,
 			Integer mapPosition, Integer positionYourKid, CustomImage... customImage) {
 
+		// System.out.println("Map Here Before setting : " + customPassedSet);
+
 		for (Integer key : customPassedSet.keySet()) {
 			// System.out.println("Key inside Sick Images : " + key);
 			Map<Integer, Image> map = customImage[key].getImageMap();
@@ -398,26 +414,36 @@ public class ImageChange extends Div {
 			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
 
 			for (int setInt : integerSet) {
-				// System.out.println("Integer Set here : " + setInt);
+				// System.out.println("Key Here : " + key + " Integer Set here : " + setInt);
 			}
 
+			// Removing the image which is 'your kid'
 			if (key == mapPosition) {
 				integerSet.remove(positionYourKid);
 			}
 
-			if (!(integerSet.isEmpty())) {
+			// TODO This setting of sick images to work on the basis of table
+
+			if (!(integerSet.isEmpty()) && key <= 5) {
 				// System.out.println("To remove first : " + integerSet.iterator().next());
 				integerSet.remove(integerSet.iterator().next());
 			}
-			if (!(integerSet.isEmpty())) {
-				// System.out.println("To remove second : " + integerSet.iterator().next());
-				integerSet.remove(integerSet.iterator().next());
-			}
+
+//			if (!(integerSet.isEmpty()) && key < 5) {
+//				// System.out.println("To remove second : " + integerSet.iterator().next());
+//				integerSet.remove(integerSet.iterator().next());
+//			}
 
 			for (Integer hashInt : integerSet) {
 				map.get(hashInt).setSrc("/images/infected.png");
 			}
 
+		}
+
+		// System.out.println("Map Here After setting : " + customPassedSet);
+		for (Integer key : customPassedSet.keySet()) {
+			LinkedHashSet<Integer> integerSet = customPassedSet.get(key);
+			// System.out.println("Size Integer Set" + integerSet.size());
 		}
 
 		AtomicReference<Registration> registrationHolder = new AtomicReference<>();
@@ -428,7 +454,7 @@ public class ImageChange extends Div {
 			// TODO This will be effective only based on Formula
 
 			// TODO Take this on count else call setSusceptibleChild
-			if (Integer.parseInt(sliderEvent.getValue()) < 50) {
+			if (Integer.parseInt(sliderEvent.getValue()) < 20) {
 				setInfectedChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
 			} else {
 				setSusceptibleChild(sliderEvent, customPassedSet, mapPosition, positionYourKid, customImage);
