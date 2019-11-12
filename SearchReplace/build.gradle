@@ -1,0 +1,53 @@
+plugins {
+  id 'java'
+  id 'com.github.johnrengelman.shadow' version '2.0.4'
+  id "org.springframework.boot" version "2.1.4.RELEASE"
+	id "io.spring.dependency-management" version "1.0.6.RELEASE"
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+project.ext {
+  dropwizardVersion = '0.9.3'
+}
+
+dependencies {
+  compileOnly 'org.projectlombok:lombok:1.18.6'
+  annotationProcessor 'org.projectlombok:lombok:1.18.6'
+
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.8.10'
+  compile 'org.apache.httpcomponents:fluent-hc:4.5.6'
+
+  // https://mvnrepository.com/artifact/commons-cli/commons-cli
+  compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+
+  // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+  // compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.28'
+
+  // https://mvnrepository.com/artifact/commons-io/commons-io
+  compile group: 'commons-io', name: 'commons-io', version: '2.6'
+  
+  testCompile 'junit:junit:4.12'
+}
+
+shadowJar {
+  mergeServiceFiles()
+  exclude 'META-INF/*.DSA'
+  exclude 'META-INF/*.RSA'
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'com.shadow.text.SearchReplaceMain'
+  }
+}
+
+task copyJar (type: Copy) {
+    from jar // shortcut for createJar.outputs.files
+    into "${projectDir}/jar"
+}

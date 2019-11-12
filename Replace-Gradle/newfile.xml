@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note>
+    <!--<send valuep="test></send>-->
+    <to>Tove</to>
+    <from value="the and the ">Jani</from>
+    <heading value="abc">Reminder</heading>
+    <body value="the">test Don't forget me this weekend!</body>
+</note>

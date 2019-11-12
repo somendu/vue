@@ -1,0 +1,7 @@
+<note>
+    <!--<send valuep="test></send>-->
+    <to>Tove</to>
+    <from value="test and test ">Jani</from>
+    <heading value="abc">Reminder</heading>
+    <body value="test">test Don't forget me this weekend!</body>
+</note>
