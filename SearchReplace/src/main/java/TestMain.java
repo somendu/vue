@@ -23,4 +23,15 @@ public class TestMain {
 
 	}
 
+	public static String sayHello(String name) {
+
+		String helloString = "";
+
+		if ("".equalsIgnoreCase(name)) {
+			helloString = "Hello there!";
+		} else {
+			helloString = "Hello, " + name + "!";
+		}
+		return helloString;
+	}
 }

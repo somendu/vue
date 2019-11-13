@@ -1,16 +1,14 @@
 package com.shadow.text;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.node.TextNode;
+import com.shadow.text.service.ReadFileService;
+import com.shadow.text.service.ReplaceTextService;
 
 public class SearchReplaceTest {
 
@@ -20,32 +18,23 @@ public class SearchReplaceTest {
 	 * @throws IOException
 	 */
 	@Test
-	public void testReadHeader() throws IOException {
-		SearchReplace splitter = new SearchReplace();
+	public void testExtension() throws IOException {
 
-		Map<String, Object> header = new HashMap<String, Object>();
+		ReadFileService readFileService = new ReadFileService();
 
-		assertNotNull(header);
-		// it should only contain catalog, dateTimeNL and lastUpdateNL
-		assertEquals(3, header.size());
-		assertEquals(new TextNode("MASTER"), header.get("catalog"));
-		assertEquals(new TextNode("2018-07-30T08:55:47"), header.get("dateTimeNL"));
-		assertEquals(new TextNode("2018-07-30T08:50:00"), header.get("lastUpdateNL"));
+		assertFalse(!readFileService.checkFileExtension("Sample.txt"));
+
+		assertFalse(readFileService.checkFileExtension("Sample.pdf"));
 	}
 
 	@Test
-	public void testSplitter() throws IOException {
-		SearchReplace splitter = new SearchReplace();
-		Map<String, Object> header = new HashMap<String, Object>();
+	public void testReplace() throws IOException {
 
-		AtomicInteger total = new AtomicInteger(0);
+		ReplaceTextService replaceTextService = new ReplaceTextService();
 
-//		splitter.splitJson(readerSupplier, header, (data, count) -> {
-//			total.addAndGet(count);
-//		});
+		assertNotSame("client", replaceTextService.replaceText("client", "client", "customer"));
 
-		// the source actually states 1124, but there the 1125th is an empty object
-		// .. meaning we are correct and the source isn't ..
-		assertEquals(1125, total.get());
+		assertNotSame("customer", replaceTextService.replaceText("client", "customer", "client"));
 	}
+
 }

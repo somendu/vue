@@ -33,8 +33,9 @@ public class ReadFileService {
 		if (checkFileExtension(sourceFile) && checkFileExtension(targetFile)) {
 			if (fileType.equalsIgnoreCase("txt")) {
 
-//				textService.testRead(sourceFile, fileType, searchString, replaceString, targetFile);
-				textService.readTextFile(sourceFile, fileType, searchString, replaceString, targetFile);
+				textService.testRead(sourceFile, fileType, searchString, replaceString, targetFile);
+				// textService.readTextFile(sourceFile, fileType, searchString, replaceString,
+				// targetFile);
 
 				// textService.readUsingFileUtils(sourceFile, fileType, searchString,
 				// replaceString, targetFile);
@@ -51,7 +52,13 @@ public class ReadFileService {
 		}
 	}
 
-	private boolean checkFileExtension(String fileName) {
+	/**
+	 * Check File Extension
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public boolean checkFileExtension(String fileName) {
 
 		String extension = FilenameUtils.getExtension(fileName);
 
