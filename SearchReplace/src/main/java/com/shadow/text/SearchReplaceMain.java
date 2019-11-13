@@ -59,9 +59,6 @@ public class SearchReplaceMain {
 		String sourceFile = commandLine.getOptionValue("sourceFile");
 		String targetFile = commandLine.getOptionValue("targetFile");
 
-//		new SearchReplace().setSourceFile(sourceFile).setFileType(fileType).setSearchString(searchString)
-//				.setReplaceString(replaceString).setTargetFile(targetFile).run();
-
 		SearchReplace searchReplace = new SearchReplace();
 
 		searchReplace.setSourceFile(sourceFile).setFileType(fileType).setSearchString(searchString)
@@ -69,11 +66,6 @@ public class SearchReplaceMain {
 
 		new Thread(searchReplace).start();
 
-		// ReaderThread reader = new ReaderThread(queue);
-//		WriterThread writer = new WriterThread(queue);
-
-//		new Thread(reader).start();
-//		new Thread(writer).start();
 	}
 
 	private static void exitSystem(Options options) {

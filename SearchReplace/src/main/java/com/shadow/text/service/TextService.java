@@ -9,7 +9,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
@@ -90,16 +91,19 @@ public class TextService {
 		// Reader.
 		new Thread(() -> {
 			try {
-				List<String> lines = Files.readAllLines(Paths.get(sourceFile));
 
-//				for (String line : lines) {
-//					replaceTextService.replaceText(line, searchString, replaceString);
-//				}
+				System.out.println(System.currentTimeMillis());
+				Stream<String> lines = Files.lines(paths, Charset.forName("UTF-8"));
 
-				String content = String.join("\n", lines);
+				List<String> fileLinesList = lines
+						.map(line -> replaceTextService.replaceText(line, searchString, replaceString))
+						.collect(Collectors.toList());
+
+				String content = String.join("\n", fileLinesList);
 
 				fileContents.set(writerId, content);
 				readWriteLatch.countDown();
+				lines.close();
 			} catch (IOException e) {
 				/* NOP */ }
 		}).start();
@@ -114,18 +118,19 @@ public class TextService {
 
 				// Wait for writer ID.
 				synchronized (this) {
-					while (currentWriterId != writerId) {
-						wait();
-					}
 
-					Files.write(newFilePath, (fileContents.get(writerId) + "\n").getBytes(), StandardOpenOption.APPEND);
-//					Files.write(newFilePath, fileContents, Charset.forName("UTF-8"));
-					currentWriterId++;
+					Files.write(newFilePath, fileContents, Charset.forName("UTF-8"));
 					notifyAll();
+					System.out.println(System.currentTimeMillis());
 				}
 			} catch (InterruptedException | IOException e) {
 				/* NOP */ }
 		}).start();
+
+		long endTime = System.currentTimeMillis();
+		NumberFormat formatter = new DecimalFormat("#0.00000");
+
+		System.out.println("Execution time is " + formatter.format((endTime - startTime) / 1000d) + " seconds");
 
 	}
 
@@ -149,6 +154,10 @@ public class TextService {
 		for (String line : fileLinesList) {
 			replaceTextService.replaceText(line, searchString, replaceString);
 		}
+
+//		String content = String.join("\n", fileLinesList);
+
+//		System.out.println(content);
 
 		Path newFilePath = Paths.get(targetFile);
 		Files.write(newFilePath, fileLinesList, Charset.forName("UTF-8"));
