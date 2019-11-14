@@ -1,3 +1,5 @@
+package com.shadow.text.support;
+
 import org.apache.commons.io.FilenameUtils;
 
 /**
