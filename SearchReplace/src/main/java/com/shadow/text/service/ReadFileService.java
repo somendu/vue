@@ -6,6 +6,7 @@ package com.shadow.text.service;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
@@ -42,7 +43,12 @@ public class ReadFileService {
 			}
 
 			else if (fileType.equalsIgnoreCase("xml")) {
-				xmlService.readXMLFile(sourceFile, fileType, searchString, replaceString, targetFile);
+				try {
+					xmlService.readHugeXMLFile(sourceFile, fileType, searchString, replaceString, targetFile);
+				} catch (XMLStreamException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else {
 				throw new FileTypeException("File Type is incorrect");

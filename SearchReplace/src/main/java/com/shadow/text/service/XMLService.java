@@ -4,15 +4,21 @@
 package com.shadow.text.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -70,34 +76,52 @@ public class XMLService {
 			TransformerException, XMLStreamException {
 
 		XMLInputFactory factory = XMLInputFactory.newInstance();
+		XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 
-		try (final InputStream stream = this.getClass().getResourceAsStream(sourceFile)) {
+		XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+
+		try (final InputStream stream = new FileInputStream(sourceFile);) {
 
 			final XMLEventReader reader = factory.createXMLEventReader(stream);
+			final XMLEventWriter writer = outputFactory.createXMLEventWriter(new FileWriter(targetFile));
 
 			while (reader.hasNext()) {
 				final XMLEvent event = reader.nextEvent();
+
 				if (event.isStartElement()) {
-					parsePage(reader);
+					final XMLEvent eventNext = reader.nextEvent();
+					if (eventNext.isEndElement()) {
+						return;
+					}
+
+					Iterator<Attribute> attribute = event.asStartElement().getAttributes();
+
+					while (attribute.hasNext()) {
+						Attribute myAttribute = attribute.next();
+
+						String attributeString = myAttribute.getValue();
+
+						attributeString = replaceTextService.replaceText(attributeString, searchString, replaceString);
+
+						System.out.println(attributeString);
+
+					}
 				}
+
+				writer.add(event);
+
 			}
+
 		}
 
 	}
 
+	private Attribute setAttribute(Iterator<Attribute> attribute) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void parsePage(final XMLEventReader reader) throws XMLStreamException {
-
-		while (reader.hasNext()) {
-			final XMLEvent event = reader.nextEvent();
-			if (event.isEndElement()) {
-				return;
-			}
-			if (event.isStartElement()) {
-				final StartElement element = event.asStartElement();
-				final String elementName = element.getName().getLocalPart();
-
-			}
-		}
 
 	}
 }
