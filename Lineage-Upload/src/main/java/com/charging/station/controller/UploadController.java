@@ -32,7 +32,7 @@ public class UploadController {
 
 	private final UploadControllerService uploadControllerService;
 
-	// Charging Sessions Method for Setting Session to Start
+	// Sessions Method for Setting Session to Start
 	@PostMapping("/uploadFile")
 
 	public ResponseEntity<?> uploadFile(@RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file) {
