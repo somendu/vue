@@ -1,0 +1,41 @@
+17:32:43.930 [main] WARN  com.shadow.text.SearchReplace - error handling file
+java.nio.file.NoSuchFileException: SampleText.txt
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:178)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:292)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:345)
+	at java.base/java.nio.file.Files.lines(Files.java:4033)
+	at com.shadow.text.service.impl.TextServiceImpl.readTextFile(TextServiceImpl.java:47)
+	at com.shadow.text.service.impl.ReadFileServiceImpl.readFile(ReadFileServiceImpl.java:41)
+	at com.shadow.text.SearchReplace.run(SearchReplace.java:103)
+	at com.shadow.text.SearchReplaceMain.main(SearchReplaceMain.java:87)
+20:51:10.306 [main] WARN  com.shadow.text.SearchReplace - File Type Not Found
+com.shadow.text.exception.FileTypeException: File Type is not Text or XML
+	at com.shadow.text.service.ReadFileService.readFile(ReadFileService.java:43)
+	at com.shadow.text.SearchReplace.run(SearchReplace.java:97)
+	at com.shadow.text.SearchReplaceMain.main(SearchReplaceMain.java:86)
+20:54:49.509 [main] WARN  com.shadow.text.SearchReplace - File Type Not Found
+com.shadow.text.exception.FileTypeException: File Type is not Text or XML
+	at com.shadow.text.service.ReadFileService.readFile(ReadFileService.java:38)
+	at com.shadow.text.SearchReplace.run(SearchReplace.java:97)
+	at com.shadow.text.SearchReplaceMain.main(SearchReplaceMain.java:86)
+20:56:52.537 [main] WARN  com.shadow.text.SearchReplace - error handling file
+java.nio.file.NoSuchFileException: /fileplace/SampleText.txt
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.newFileChannel(UnixFileSystemProvider.java:178)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:292)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:345)
+	at java.base/java.nio.file.Files.lines(Files.java:4033)
+	at com.shadow.text.service.TextService.readTextFile(TextService.java:31)
+	at com.shadow.text.service.ReadFileService.readFile(ReadFileService.java:31)
+	at com.shadow.text.SearchReplace.run(SearchReplace.java:97)
+	at com.shadow.text.SearchReplaceMain.main(SearchReplaceMain.java:86)
+21:17:12.397 [main] WARN  com.shadow.text.SearchReplace - File Type Not Found
+com.shadow.text.exception.FileTypeException: File Type is not Text or XML
+	at com.shadow.text.service.ReadFileService.readFile(ReadFileService.java:42)
+	at com.shadow.text.SearchReplace.run(SearchReplace.java:98)
+	at com.shadow.text.SearchReplaceMain.main(SearchReplaceMain.java:86)

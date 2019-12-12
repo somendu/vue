@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration debug="false">                          
+
+		
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> <!-- Added this class here to remove the console logs from logback -->                                                                                                                                                                        
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">                                                                                                                                                                                                                                 
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>                                                                                                                                                             
+    </encoder>                                                                                                                                                                                                                                
+  </appender>                                                                                                                                                                                                                                 
+ 
+ <logger name="o.a.h.impl.execchain.MainClientExec" level="OFF"/>
+ <logger name="org.apache.http.wire" level="OFF"/>
+ <logger name="org.apache.http.headers" level="OFF"/>
+ <logger name="ch.qos.logback.classic.LoggerContext" level="OFF"/>
+  <logger name="ch.qos.logback.classic.joran.action.LoggerAction" level="OFF"/>
+ 
+ <logger name="ch.qos.logback.core.joran" level="OFF"/>
+ <logger name="c.q.l.core.rolling" level="OFF"/>
+ 
+ 
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">                                                                                                                                                              
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">                                                                                                                                                                
+      <!-- Daily rollover -->                                                                                                                                                                                                                 
+      <fileNamePattern>D:\Informatica\PIM\custom\logs\pim-shadow.%d{yyyy-MM-dd, UTC}.log</fileNamePattern>                                                                                                                                                                     
+ 
+      <!-- Keep 7 days' worth of history -->                                                                                                                                                                                                  
+      <maxHistory>7</maxHistory>                                                                                                                                                                                                              
+    </rollingPolicy>                                                                                                                                                                                                                          
+ 
+    <encoder>  <!-- Added this class here to remove the console logs from logback -->                                                                                                                                                                                                                                 
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>                                                                                                                                                             
+    </encoder>                                                                                                                                                                                                                                
+  </appender>                                                                                                                                                                                                                                 
+ 
+ 
+  <!-- Configure so that it outputs to both console and log file -->                                                                                                                                                                          
+  <root level="DEBUG">                                                                                                                                                                                                                                                                                                                                                                                                                                 
+     <appender-ref ref="STDOUT" />
+     <appender-ref ref="FILE" />                                                                                                                                                                                                                -->
+  </root>      
+                                                                                                                                                                                                                             
+</configuration>   
