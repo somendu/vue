@@ -1,0 +1,13 @@
+informatica.pim:
+  server:  https://dev.pim-toyota.com
+  external-url: https://dev.pim-toyota.com
+
+tme.api:
+  auth-url: https://taasb2ba.toyota-europe.com/taas/authenticate
+  auth-user: padoc.acc360@TMME
+  auth-pass: Tar$123A
+  product-url: http://product-roa.toyota-europe.com
+
+logging.level.com.vqd.tme.na2a: DEBUG
+logging.level.com.vqd.tme.na2a.service.ProductService: TRACE
+logging.level.com.vqd.tme.na2a.data.impl.P360Variants: TRACE

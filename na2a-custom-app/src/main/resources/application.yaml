@@ -1,0 +1,9 @@
+spring.cache:
+  cache-names: vehicleStructure, lookups, structureCache, enumLookupCache
+  caffeine:
+    spec: maximumSize=8192,expireAfterAccess=600s
+
+logging.path: logs
+# Suppress startup messages
+logging.level.org.springframework: WARN
+logging.level.com.vqd.tme.na2a: DEBUG
