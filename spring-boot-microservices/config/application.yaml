@@ -1,0 +1,12 @@
+spring.datasource:
+  url: jdbc:sqlserver://192.168.10.43:1433;databaseName=DM_PRICES_ACC
+  username: jibes_qlikview
+  password: jMigfCm4
+
+logging.level.com.partspointgroup: DEBUG
+
+remote:
+  #pim-acc-ppg
+  endpoint: 'http://pim-a.partspoint.com:1512/rest'
+  username: 'price'
+  password: 'application'

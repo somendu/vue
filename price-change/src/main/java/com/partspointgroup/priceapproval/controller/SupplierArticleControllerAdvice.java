@@ -3,6 +3,7 @@
  */
 package com.partspointgroup.priceapproval.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.partspointgroup.priceapproval.support.ItemUpdateException;
 
-import nl.jibes.mdmce.utils.Maps;
+ 
 
 /**
  * @author SomenduMaiti
@@ -27,6 +28,6 @@ public class SupplierArticleControllerAdvice extends ResponseEntityExceptionHand
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Map<String, Object> handleRemarksUpdateException(ItemUpdateException ex) {
-		return Maps.of("errors", ex.getMessages());
+		  return new HashMap<String, Object>();
 	}
 }

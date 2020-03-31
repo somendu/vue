@@ -1,5 +1,6 @@
 package com.partspointgroup.priceapproval.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ import com.partspointgroup.priceapproval.service.SupplierArticleService;
 import com.partspointgroup.priceapproval.support.ItemUpdateException;
 
 import lombok.RequiredArgsConstructor;
-import nl.jibes.mdmce.utils.Maps;
+//import nl.jibes.mdmce.utils.Maps;
 
 /**
  * REST controller for front-end
@@ -51,7 +52,7 @@ public class SupplierArticleController {
 
 		svc.digest(req.getIds(), ApprovalStatus.valueOf(req.getValue()));
 
-		return Maps.of("status", 0);
+		return new HashMap<String, Object>();
 	}
 
 	@PostMapping("/api/update-all-supplier-articles")
@@ -60,7 +61,7 @@ public class SupplierArticleController {
 
 		svc.digest(req.getFilter(), ApprovalStatus.valueOf(req.getValue()));
 
-		return Maps.of("status", 0);
+		return new HashMap<String, Object>();
 	}
 
 	@PostMapping("/api/update-remarks")
@@ -69,7 +70,7 @@ public class SupplierArticleController {
 
 		svc.updateRemarks(req.getIds(), req.getRemarks());
 
-		return Maps.of("status", 0);
+		return new HashMap<String, Object>();
 	}
 
 	@PostMapping("/api/update-all-remarks")
@@ -78,6 +79,6 @@ public class SupplierArticleController {
 
 		svc.updateRemarks(req.getFilter(), req.getRemarks());
 
-		return Maps.of("status", 0);
+		return new HashMap<String, Object>();
 	}
 }
