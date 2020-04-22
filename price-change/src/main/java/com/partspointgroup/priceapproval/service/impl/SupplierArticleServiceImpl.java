@@ -61,7 +61,8 @@ public class SupplierArticleServiceImpl implements SupplierArticleService {
 				dbRepository.moveToHistory(id.getArticleId(), id.getSupplierCode(), id.getCountryCode(), now, action);
 			} catch (Exception e) {
 				log.warn("could not update article {}: {}", id, e);
-				caughtErrors.add(String.format("couldn't set status for %s/%s: %s", id.getSupplierCode(), id.getArticleId(), e.getMessage()));
+				caughtErrors.add(String.format("couldn't set status for %s/%s: %s", id.getSupplierCode(),
+						id.getArticleId(), e.getMessage()));
 			}
 
 		}
@@ -86,7 +87,8 @@ public class SupplierArticleServiceImpl implements SupplierArticleService {
 				dbRepository.setRemarks(id.getArticleId(), id.getSupplierCode(), id.getCountryCode(), remarks);
 			} catch (Exception e) {
 				log.warn("could not update remarks for {}: {}", id, e);
-				caughtErrors.add(String.format("couldn't update remarks for %s/%s: %s", id.getSupplierCode(), id.getArticleId(), e.getMessage()));
+				caughtErrors.add(String.format("couldn't update remarks for %s/%s: %s", id.getSupplierCode(),
+						id.getArticleId(), e.getMessage()));
 			}
 		}
 

@@ -1,14 +1,12 @@
 package com.data.story.spring;
 
 import com.data.story.spring.views.common.TextComponent;
-import com.data.story.spring.views.pages.ImageChange;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.page.Viewport;
-import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -19,7 +17,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Tag("main-view")
 @CssImport(value = "./styles/views/main-view.css", include = "lumo-badge")
 @JsModule("./styles/shared-styles.js")
-@PWA(name = "Story", shortName = "Story")
+//@PWA(name = "Story", shortName = "Story")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainView extends AppLayout {
@@ -28,7 +26,9 @@ public class MainView extends AppLayout {
 //
 	private TextComponent titleText = new TextComponent();
 
-	private ImageChange imageChange = new ImageChange();
+//	private ImageChange imageChange = new ImageChange();
+
+//	private DashboardView masterDetailView = new DashboardView();
 
 	public MainView() {
 
