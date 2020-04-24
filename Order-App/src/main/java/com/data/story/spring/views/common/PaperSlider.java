@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.gmail.marco.ui.views.support;
+package com.data.story.spring.views.common;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.shared.Registration;
 
 /**
@@ -14,7 +14,7 @@ import com.vaadin.flow.shared.Registration;
  *
  */
 @Tag("paper-slider")
-@JavaScript("@polymer/paper-slider/paper-slider.js")
+@JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider extends Component {
 
 	private String min;
@@ -30,14 +30,7 @@ public class PaperSlider extends Component {
 		getElement().setAttribute("min", min);
 		getElement().setAttribute("max", max);
 		getElement().setAttribute("value", initValue);
-
-//		addStyleName(getElement().getStyle() + "-vertical");
-
-//		getElement().getStyle().set("width", "150px");
-//		getElement().getStyle().set("height", "20px");
-//		getElement().getStyle().set("margin", "0");
-//		getElement().getStyle().set("transform", "rotate(90deg)");
-//		getElement().getStyle().set("transform-origin", "75px 75px");
+		getElement().setAttribute("pin", "true");
 
 		getElement().getStyle().set("--paper-slider-knob-color", "var(--paper-grey-500)");
 		getElement().getStyle().set("--paper-slider-active-color", "var(--paper-yellow-500)");
