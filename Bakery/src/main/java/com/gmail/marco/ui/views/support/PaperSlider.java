@@ -6,7 +6,7 @@ package com.gmail.marco.ui.views.support;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.shared.Registration;
 
 /**
@@ -14,7 +14,7 @@ import com.vaadin.flow.shared.Registration;
  *
  */
 @Tag("paper-slider")
-@JsModule("@polymer/paper-slider/paper-slider.js")
+@JavaScript("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider extends Component {
 
 	private String min;

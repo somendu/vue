@@ -1,0 +1,12 @@
+server.servlet.session:
+  timeout: 12H
+  cookie.name: pcsessionid
+
+spring.datasource:
+  driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+logging.path: logs
+
+# Suppress startup messages
+logging.level.org.springframework: WARN
+logging.level.org.apache.catalina: WARN

@@ -26,6 +26,6 @@ public interface UploadControllerService {
 	 */
 	public String uploadFile(ChargeRequest request);
 
-	public void saveUploadedFile(MultipartFile image) throws IOException;
+	public void saveUploadedFile(MultipartFile file) throws IOException;
 
 }

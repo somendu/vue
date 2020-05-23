@@ -1,0 +1,72 @@
+{
+"catalog": "MASTER",
+"dateTimeNL": "2018-10-19T08:31:37",
+"lastUpdateNL": "2018-10-18T08:31:00",
+"objectCount": 2,
+"objects": [{"object": {"id": "Article_820084460615963","deleted": false,"channelChanged":[]},
+"fields": { 
+	"Article.SupplierAID": "Article_820084460615963",
+	"Article.ManufacturerAID": "08603",
+	"Article.EAN": "3134375404389",
+	"Article.ManufacturerName": "3M",
+	"Party.Name": "3M",
+	"Party.OwnIdentifier": "116",
+	"Party.Duns": "057485",
+	"Article.SupplierAltAID": "MOQTEST6",
+	"Article.CurrentStatus": "05 Active",
+	"Article.PriceStatus": "05 Processed",
+	"Article.SupplierAltSAP": "MOQTEST6",
+	"Article.SupplierAltSuggestionSAP": "MOQTEST6",
+	"Article.SAPStatus": "zg",
+	"Article.Fastlane": "No",
+	"Article.PPGAssortment": "Yes",
+	"Article.Brand": "3M NEDERLAND B.V. (P0051)",
+	"Article.BrandCode": "P0051",
+	"languageSpecificData": {"nl": {"ArticleLang.DescriptionShort": "MOQTEST6","ArticleLang.ManufacturerTypeDescription": "3M 1K PU ZWART 310ML >7000077196TEST","ArticleLang.Remarks": "extra"},"fr": {"ArticleLang.ManufacturerTypeDescription": "MASTIC VITRAGE 3M 1K PU NOIR CART 310ML"},"en": {"ArticleLang.ManufacturerTypeDescription": "3M 1K-PU BEDDING&GLAZING COMP. CARTR. 31"}},
+	"purchasePrices": [{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-20","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Net list price from supplier","ArticlePriceValuePurchase.Amount": 6.91},{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-20","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Deposit surcharge","ArticlePriceValuePurchase.Amount": 4.00},{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-21","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Gross list price","ArticlePriceValuePurchase.Amount": 12.56}],
+	"purchasingData": [{"ArticlePurchase.Supplier": "3M","ArticlePurchase.QuantityMin": 10,"ArticlePurchase.DeliveryTime": 7,"ArticlePurchase.PriceQuantity": 1,"ArticlePurchase.QuantityInterval": 1.00}],
+	"logisticData": {"NL": { "ArticleLogistic.OriginCountry": "FR"}},
+	"extendedLogisticalData": [{"ArticleLogisticExtension.Party": "3M","ArticleLogisticExtension.PackagingUnit": "piece","ArticleLogisticExtension.Ean13": "3134375404389","ArticleLogisticExtension.GrossWeight": 0.422,"ArticleLogisticExtension.GrossWeightUnit": "kilogram","ArticleLogisticExtension.Weight": 0.422,"ArticleLogisticExtension.WeightUnit": "kilogram","ArticleLogisticExtension.Length": 26.700,"ArticleLogisticExtension.LengthUnit": "centimetre","ArticleLogisticExtension.Width": 4.600,"ArticleLogisticExtension.WidthUnit": "centimetre","ArticleLogisticExtension.Height": 4.600,"ArticleLogisticExtension.HeightUnit": "centimetre","ArticleLogisticExtension.Volume": 310.000,"ArticleLogisticExtension.VolumeUnit": "millilitre"}],
+	"Article.PriceQuantity": 1
+},
+"attributes": 
+	{"Product Manager": "001","Main supplier": "True","Intrastat": "35069100","Etikettype": "M" },
+"structureGroupAssignments": [{"Structure.Identifier": "PPGArticleStructure","StructureGroup.Identifier": "010_010_010","StructureGroupLang.Name": "Conventionele accu","StructureGroup.ParentIdentifier": "010_010","StructureGroupLang.ParentName": "Accu's"},{"Structure.Identifier": "SAPMaterialGroup","StructureGroup.Identifier": "110100","StructureGroupLang.Name": "Start & hobby accu's (110100)","StructureGroup.ParentIdentifier": "1101","StructureGroupLang.ParentName": "Accu"}],
+"supplierRelationship": 
+	[{"ArticleSupplierRelation.MainSupplierBoolean": true,"ArticleSupplierRelation.Supplier": "3M","ArticleSupplierRelation.Party.OwnIdentifier": "116","ArticleSupplierRelation.SupplierArticleCatalog": "3M","ArticleSupplierRelation.SupplierArticle": "08603","ArticleSupplierRelation.SupplierArticleAid": "08603"}]
+},
+{"object": {"id": "Article_820084460615991","deleted": false,"channelChanged":[]},
+"fields": { 
+	"Article.SupplierAID": "Article_820084460615991",
+	"Article.ManufacturerAID": "08603",
+	"Article.EAN": "3134375404389",
+	"Article.ManufacturerName": "3M",
+	"Party.Name": "3M",
+	"Party.OwnIdentifier": "116",
+	"Party.Duns": "057485",
+	"Article.SupplierAltAID": "MOQTEST4",
+	"Article.CurrentStatus": "05 Active",
+	"Article.PriceStatus": "05 Processed",
+	"Article.SupplierAltSAP": "MOQTEST4.01",
+	"Article.SupplierAltSuggestionSAP": "MOQTEST4",
+	"Article.SAPStatus": "ze",
+	"Article.Fastlane": "No",
+	"Article.PPGAssortment": "Yes",
+	"Article.Brand": "3M NEDERLAND B.V. (P0051)",
+	"Article.BrandCode": "P0051",
+	"languageSpecificData": {"en": {"ArticleLang.ManufacturerTypeDescription": "3M 1K-PU BEDDING&GLAZING COMP. CARTR. 31"},"fr": {"ArticleLang.ManufacturerTypeDescription": "MASTIC VITRAGE 3M 1K PU NOIR CART 310ML"},"nl": {"ArticleLang.DescriptionShort": "MOQTEST4","ArticleLang.ManufacturerTypeDescription": "3M 1K PU ZWART 310ML >7000077196TEST","ArticleLang.Remarks": "extra"}},
+	"purchasePrices": [{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-20","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Net list price from supplier","ArticlePriceValuePurchase.Amount": 6.91},{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-21","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Gross list price","ArticlePriceValuePurchase.Amount": 12.56},{"ArticlePricePurchase.Supplier": "3M","ArticlePricePurchase.Currency": "EUR","ArticlePricePurchase.Territory": "NL","ArticlePricePurchase.ValidFrom": "2018-09-20","ArticlePricePurchase.ValidTo": "9999-12-31","ArticlePricePurchase.PriceType": "Deposit surcharge","ArticlePriceValuePurchase.Amount": 4.00}],
+	"purchasingData": [{"ArticlePurchase.Supplier": "3M","ArticlePurchase.DeliveryTime": 7,"ArticlePurchase.PriceQuantity": 1,"ArticlePurchase.QuantityInterval": 1.00}],
+	"logisticData": {"NL": { "ArticleLogistic.OriginCountry": "FR"}},
+	"extendedLogisticalData": [{"ArticleLogisticExtension.Party": "3M","ArticleLogisticExtension.PackagingUnit": "piece","ArticleLogisticExtension.Ean13": "3134375404389","ArticleLogisticExtension.GrossWeight": 0.422,"ArticleLogisticExtension.GrossWeightUnit": "kilogram","ArticleLogisticExtension.Weight": 0.422,"ArticleLogisticExtension.WeightUnit": "kilogram","ArticleLogisticExtension.Length": 26.700,"ArticleLogisticExtension.LengthUnit": "centimetre","ArticleLogisticExtension.Width": 4.600,"ArticleLogisticExtension.WidthUnit": "centimetre","ArticleLogisticExtension.Height": 4.600,"ArticleLogisticExtension.HeightUnit": "centimetre","ArticleLogisticExtension.Volume": 310.000,"ArticleLogisticExtension.VolumeUnit": "millilitre"}],
+	"Article.PriceQuantity": 1
+},
+"attributes": 
+	{"Main supplier": "True","Product Manager": "001","Etikettype": "M","Intrastat": "35069100" },
+"structureGroupAssignments": [{"Structure.Identifier": "SAPMaterialGroup","StructureGroup.Identifier": "110100","StructureGroupLang.Name": "Start & hobby accu's (110100)","StructureGroup.ParentIdentifier": "1101","StructureGroupLang.ParentName": "Accu"},{"Structure.Identifier": "PPGArticleStructure","StructureGroup.Identifier": "010_010_010","StructureGroupLang.Name": "Conventionele accu","StructureGroup.ParentIdentifier": "010_010","StructureGroupLang.ParentName": "Accu's"}],
+"supplierRelationship": 
+	[{"ArticleSupplierRelation.MainSupplierBoolean": true,"ArticleSupplierRelation.Supplier": "3M","ArticleSupplierRelation.Party.OwnIdentifier": "116","ArticleSupplierRelation.SupplierArticleCatalog": "3M","ArticleSupplierRelation.SupplierArticle": "08603","ArticleSupplierRelation.SupplierArticleAid": "08603"}]
+},
+{}
+]
+}

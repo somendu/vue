@@ -1,0 +1,25 @@
+.loading {
+  background-image: url('./loading.gif');
+  background-position: left 6px center;
+  background-repeat: no-repeat;
+  text-indent: 60px;
+  line-height: 48px;
+}
+
+.loading-small {
+  background-image: url('./loading_small.gif');
+  background-position: left 6px center;
+  background-repeat: no-repeat;
+  text-indent: 28px;
+}
+
+.scroll-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-column-content {
+  /* flex: 1; */
+  flex: 0 1 auto;
+  overflow-y: auto;
+}

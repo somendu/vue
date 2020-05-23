@@ -1,0 +1,16 @@
+runtime: java
+env: flex
+runtime_config:
+  jdk: openjdk8
+env_variables:
+  SPRING_PROFILES_ACTIVE: "gcp,mysql"
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAM=256m -XX:ActiveProcessorCount=2 -Xmx32m"
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+manual_scaling: 
+  instances: 1
+resources:
+    cpu: 1
+    memory_gb: 4
+    disk_size_gb: 16
